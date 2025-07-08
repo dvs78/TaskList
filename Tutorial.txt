@@ -241,12 +241,17 @@ del back_end\.gitignore
 // Endpoint
 Criar a pasta api_front no front-end e dentro dela apiFront.js
 Instalar o axios no front-end
+
+
+--------------------------------------------------------------------------------------------
+10 PASSO - AXIOS
+Middleware, para resolver o problema do front e back que estão em portas diferentes,
 Digitar no terminal do front-end
 npm i axios
 
 
 --------------------------------------------------------------------------------------------
-10 PASSO - CORS
+11 PASSO - CORS
 Middleware, para resolver o problema do front e back que estão em portas diferentes,
 cors: middleware que permite requisições entre front-end e back-end.
 Ir para pasta back-end
@@ -274,7 +279,7 @@ app.listen(PORT, () => {
 
 
 --------------------------------------------------------------------------------------------
-11 PASSO - CRIAR O BANCO DE DADOS NO pgadmin
+12 PASSO - CRIAR O BANCO DE DADOS NO pgadmin
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -306,7 +311,7 @@ VALUES
 
 
 --------------------------------------------------------------------------------------------
-12 PASSO - CRIAR O ARQUIVO .env PARA DEIXAR OS DADOS DE CONEXÃO SEGUROS
+13 PASSO - CRIAR O ARQUIVO .env PARA DEIXAR OS DADOS DE CONEXÃO SEGUROS
 São as variáveis que não serão compartilhadas com terceiros
 Criar arquivo .env no back-end
 
@@ -344,7 +349,7 @@ Rodar o node ./server.js e conferir se deu certo
 
 
 --------------------------------------------------------------------------------------------
-13 PASSO - CRIAR AS ESTRUTURAS DO CRUD
+14 PASSO - CRIAR AS ESTRUTURAS DO CRUD
 Criar a pasta crud em back-end
 POST, GET, PUT, DELETE
 CRUD - CREATE, READ, UPDATE e DELETE
@@ -371,10 +376,7 @@ export default pool
 
 
 --------------------------------------------------------------------------------------------
-rodar no arquivo global = npm install axios
-
-
-14 PASSO - CRIAR A CLASSE GERAL DAS ROTAS
+15 PASSO - CRIAR A CLASSE GERAL DAS ROTAS
 Dentro da pasta dbOnLine, criar um arquivo DbClass.js
 As iniciais em maiúsculo, porque iremos criar uma classe nesse arquivo
 Esse arquivo terá as ações comuns para o banco de dados
@@ -406,22 +408,23 @@ app.listen(PORT, () => {
 
 
 --------------------------------------------------------------------------------------------
-15 PASSO - CRIAR O ARQUIVO DE ROTAS
-Criar a pasta rotas e arquivo rotaTarefas.js
+16 PASSO - CRIAR O ARQUIVO DE ROTAS
+Criar a pasta rotas e arquivo rotaLogin.js
 Vamos criar a rota das tarefas:
 
 import { Router } from "express";
-import DbClassTarefas from "../dbOnline/DbClassTarefas.js";
+import DbClassLogin from "../dbOnLine/DbClassLogin.js";
 
 const rotas = Router();
 
+// ROTA PARA TUDO
 rotas.get("/", async (req, res) => {
   try {
-    const result = await new DbClassTarefas().getAll();
+    const result = await new DbClassLogin().getAll();
     res.status(200).send(result);
-  } catch (error) {
-    console.error("Erro na rota GET /:", error.message);
-    res.status(500).json({ erro: "Erro ao buscar tarefas" });
+  } catch (erro) {
+    console.error("Erro na rota GET /login:", erro.message);
+    res.status(500).send({ erro: "Erro ao buscar login" });
   }
 });
 
@@ -429,50 +432,477 @@ export default rotas;
 
 
 O arquivo server.js, FICA ASSIM:
-// API significa Application Programing interface
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import "dotenv/config";
-// import DbClass from "../crud/dbOnline/DbClass.js"; // 👈 importação correta
-import rotaTarefas from "../crud/rotas/rotaTarefas.js";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-console.log("__dirname", __dirname);
+import rotaLogin from "../crud/rotas/rotaLogin.js";
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 const PORT = 3000;
 
-app.use(express.json());
-app.use(cors());
-
-// CRIAR A ROTA GET QUE IRÁ COMUNICAR O DB COM SERVIDOR
-// app.get("/", async (req, res) => {
-//   const result = await new DbClass().getAll("tarefas");
-//   res.status(200).send(result);
-// });
-
-app.use("/api/tarefas", rotaTarefas);
-
-app.use(express.static(path.join(__dirname, "../../front-end/dist")));
-
-app.get("*any", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../front-end/dist/index.html"));
-});
+app.use("/api/login", rotaLogin);
 
 app.listen(PORT, () => {
   console.log(`Servidor está escutando na porta ${PORT}`);
 });
 
-
-
-
 ALTERAR ENDPOINT
 É necessário para não confundir com aquivos.js que terão o mesmo nome do endpoint
 Ex:
-app.use("/api/carrinho", rotasTarefas);
+app.use("/api/carrinho", rotaLogin);
+
+
+--------------------------------------------------------------------------------------------
+17 PASSO - COMO FICOU App.jsx e Login.jsx
+
+App.jsx
+import React, { useState } from "react";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Toast from "./Components/Toast";
+
+function App() {
+  const [user, setUser] = useState(null); // cria o estado do usuário
+  console.log("Usuário logado", user);
+
+  return (
+    <div className="app_components">
+      <Login setUser={setUser} /> {/* passa a função para Login */}
+      <Home />
+      <Toast />
+    </div>
+  );
+}
+
+export default App;
+
+
+Login.jsx
+import React, { useState, useEffect } from "react";
+import { notificar } from "../../Components/Toast.jsx";
+import { buscarLogins } from "../../../api_front/login.js";
+
+const Login = ({ setUser }) => {
+  // recebe a prop (função) do App
+  const [senha, setSenha] = useState("");
+
+  const handleLogin = async () => {
+    if (!senha) {
+      return notificar("erro", "Informe a senha");
+    }
+
+    const usuario = await buscarLogins();
+    const userFind = usuario.find((f) => f.senha === senha);
+
+    if (userFind) {
+      notificar("sucesso", `Bem-vindo, ${userFind.nome}!`);
+      setUser(userFind); // envia para app
+    } else {
+      notificar("erro", "Senha inválida");
+    }
+
+    setSenha("");
+  };
+
+  return (
+    <div className="login__container">
+      <h1>Login</h1>
+      <label className="label__login" htmlFor="input__login">
+        Digite sua senha:
+      </label>
+      <input
+        type="password"
+        name="input__login"
+        placeholder="senha"
+        value={senha}
+        onChange={(e) => {
+          setSenha(e.target.value);
+        }}
+      />
+      <button className="btn__enter" onClick={handleLogin}>
+        <h3>Entrar</h3>
+      </button>
+    </div>
+  );
+};
+
+export default Login;
+
+
+--------------------------------------------------------------------------------------------
+17 PASSO - INSTALAR PACOTE PARA RE-RENDERIZAR PÁGINAS
+Fazer isso depois de criar as páginas
+Abrir na pasta global
+Digitar no terminal:
+npm i react-router-dom
+
+Importar dentro do arquivo App.jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+O que é BrowserRouter: vai gerenciar as rotas. Browser = navegador, Router = roteador
+Agora as páginas são componenetes que serão re-renderizados num mesmo documento, 
+ou se é certo dizer, na mesma página
+
+Como vai ficar os arquivos:
+
+Main.jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom"; // 👈 importado aqui
+import "./style.css";
+import App from "./App.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <BrowserRouter>
+      {" "}
+      {/* 👈 envolve o App com o roteador */}
+      <App />
+    </BrowserRouter>
+  </StrictMode>
+);
+
+
+App.jsx
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Toast from "./Components/Toast";
+
+function App() {
+  const [user, setUser] = useState(null); // cria o estado do usuário
+  console.log("Usuário logado", user);
+
+  return (
+    <div className="app_components">
+      <Routes>
+        <Route path="/" element={<Login setUser={setUser} />}>
+          {" "}
+          {/* passa a função para Login */}
+        </Route>
+        <Route path="/home" element={<Home />}></Route>
+      </Routes>
+      <Toast />
+    </div>
+  );
+}
+
+export default App;
+
+
+Login.jsx
+O useNavigate é um hook do react-router-dom usado para navegar entre páginas
+import { useNavigate } from "react-router-dom";
+
+import React, { useState, useEffect } from "react";
+import { notificar } from "../../Components/Toast.jsx";
+import { buscarLogins } from "../../../api_front/login.js";
+import { useNavigate } from "react-router-dom";
+
+const Login = ({ setUser }) => {
+  // recebe a prop (função) do App
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    if (!senha) {
+      return notificar("erro", "Informe a senha");
+    }
+
+    const usuario = await buscarLogins();
+    const userFind = usuario.find((f) => f.senha === senha);
+
+    if (userFind) {
+      notificar("sucesso", `Bem-vindo, ${userFind.nome}!`);
+      setUser(userFind); // envia para app
+      navigate("/home"); // redireciona para /home
+    } else {
+      notificar("erro", "Senha inválida");
+    }
+
+    setSenha("");
+  };
+
+  return (
+    <div className="login__container">
+      <h1>Login</h1>
+      <label className="label__login" htmlFor="input__login">
+        Digite sua senha:
+      </label>
+      <input
+        type="password"
+        name="input__login"
+        placeholder="senha"
+        value={senha}
+        onChange={(e) => {
+          setSenha(e.target.value);
+        }}
+      />
+      <button className="btn__enter" onClick={handleLogin}>
+        <h3>Entrar</h3>
+      </button>
+    </div>
+  );
+};
+
+export default Login;
+
+
+-------------------------------------------------------------------------------------------
+18 PASSO - CRIAR PROTEÇÃO DE ROTAS
+Usuário só irá navegar se estiver logado
+import { Navigate } from "react-router-dom";
+<Route
+  path="/home"
+  element={user ? <Home user={user} /> : <Navigate to="/" />}
+/>
+
+App.jsx
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Toast from "./Components/Toast";
+
+function App() {
+  const [user, setUser] = useState(null); // cria o estado do usuário
+  console.log("Usuário logado", user);
+
+  return (
+    <div className="app_components">
+      <Routes>
+        <Route path="/" element={<Login setUser={setUser} />}>
+          {" "}
+          {/* passa a função para Login */}
+        </Route>
+        <Route
+          path="/home"
+          element={user ? <Home user={user} /> : <Navigate to="/" />}
+        ></Route>
+      </Routes>
+      <Toast />
+    </div>
+  );
+}
+
+export default App;
+
+
+-------------------------------------------------------------------------------------------
+19 PASSO - MANTER NA PÁGINA MESMO APÓS O CARREGAMENTO
+Salvar o login no localStorage para manter a sessão mesmo após recarregar a página
+
+1. No momento em que o login for bem-sucedido, adicione:
+localStorage.setItem("user", JSON.stringify(userFind));
+
+Login.jsx
+import React, { useState, useEffect } from "react";
+import { notificar } from "../../Components/Toast.jsx";
+import { buscarLogins } from "../../../api_front/login.js";
+import { useNavigate } from "react-router-dom";
+
+const Login = ({ setUser }) => {
+  // recebe a prop (função) do App
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    if (!senha) {
+      return notificar("erro", "Informe a senha");
+    }
+
+    const usuario = await buscarLogins();
+    const userFind = usuario.find((f) => f.senha === senha);
+
+    if (userFind) {
+      notificar("sucesso", `Bem-vindo, ${userFind.nome}!`);
+      setUser(userFind); // envia para app
+      localStorage.setItem("user", JSON.stringify(userFind)); // 👈 salva
+      navigate("/home"); // redireciona para /home
+    } else {
+      notificar("erro", "Senha inválida");
+    }
+
+    setSenha("");
+  };
+
+  return (
+    <div className="login__container">
+      <h1>Login</h1>
+      <label className="label__login" htmlFor="input__login">
+        Digite sua senha:
+      </label>
+      <input
+        type="password"
+        name="input__login"
+        placeholder="senha"
+        value={senha}
+        onChange={(e) => {
+          setSenha(e.target.value);
+        }}
+      />
+      <button className="btn__enter" onClick={handleLogin}>
+        <h3>Entrar</h3>
+      </button>
+    </div>
+  );
+};
+
+export default Login;
+
+
+2. Carregar o usuário salvo ao iniciar o app (App.jsx)
+Logo ao iniciar o app, você verifica se há um usuário salvo:
+
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
+
+const [loading, setLoading] = useState(true); // 👈 novo estado
+setLoading(false); // 👈 só após checar o localStorage
+if (loading) {
+    return <div>Carregando...</div>; // ou spinner, etc
+  }
+
+
+App.jsx
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Toast from "./Components/Toast";
+
+function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // 👈 novo estado
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    setLoading(false); // 👈 só após checar o localStorage
+  }, []);
+
+  if (loading) {
+    return <div>Carregando...</div>; // ou spinner, etc
+  }
+
+  return (
+    <div className="app_components">
+      <Routes>
+        <Route path="/" element={<Login setUser={setUser} />} />
+        <Route
+          path="/home"
+          element={user ? <Home user={user} /> : <Navigate to="/" />}
+        />
+      </Routes>
+      <Toast />
+    </div>
+  );
+}
+
+export default App;
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - LOGOUT
+Removendo o usuário
+import { useNavigate } from "react-router-dom";
+
+const Home = ({ user }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
+  return (
+    <div>
+      <h1>Bem-vindo, {user?.nome}</h1>
+      <button onClick={handleLogout}>Sair</button>
+    </div>
+  );
+};
+
+export default Home;
+
+Como está o Home.jsx!!!!!!!!!!!!!!!!
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { notificar } from "../../Components/Toast";
+
+const Home = ({ user }) => {
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    if (!user) {
+      notificar("erro", "Usuário não está logado");
+      navigate("/"); // redireciona automaticamente
+    } else {
+      setUserName(user.nome);
+    }
+  }, [user, navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
+  return (
+    <div className="home__container">
+      <h1>Bem-vindo{userName && `, ${userName}`}!</h1>
+      <p>Você está autenticado no sistema.</p>
+      <button className="btn__logout" onClick={handleLogout}>
+        Sair
+      </button>
+    </div>
+  );
+};
+
+export default Home;
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
 
 
 -------------------------------------------------------------------------------------------
@@ -606,84 +1036,7 @@ export async function getAllTask() {
 
 
 
---------------------------------------------------------------------------------------------
-6 PASSO - INSTALAR PACOTE PARA RE-RENDERIZAR PÁGINAS
-Fazer isso depois de criar as páginas
-Abrir na pasta global
-Digitar no terminal:
-npm i react-router-dom
 
-Importar dentro do arquivo App.jsx
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-O que é BrowserRouter: vai gerenciar as rotas. Browser = navegador, Router = roteador
-Agora as páginas são componenetes que serão re-renderizados num mesmo documento, 
-ou se é certo dizer, na mesma página
-
-ESTAVA ASSIM:
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Home from "./Pages/Home/Home";
-
-function App() {
-  return (
-    <div className="app__components">
-      <Header />
-      <Home />
-    </div>
-  );
-}
-
-export default App;
-
-FICOU ASSIM:
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Home from "./Pages/Home/Home";
-import Login from "./Pages/Login/login";
-
-function App() {
-  return (
-    <div className="app__components">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </div>
-  );
-}
-
-export default App;
-
-
-IR NO main.jsx e alterar
-ESTAVA ASSIM:
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
-
-FICOU ASSIM:
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.jsx";
-import { BrowserRouter } from "react-router-dom";
-
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>
-);
 
 
 --------------------------------------------------------------------------------------------

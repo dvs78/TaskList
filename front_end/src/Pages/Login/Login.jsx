@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { notificar } from "../../Components/Toast.jsx";
 import { buscarLogins } from "../../../api_front/login.js";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setUser }) => {
+  // recebe a prop (função) do App
   const [senha, setSenha] = useState("");
-  const [userLoggedd, setUserLoggedd] = useState(null);
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     if (!senha) {
@@ -16,20 +18,15 @@ const Login = () => {
 
     if (userFind) {
       notificar("sucesso", `Bem-vindo, ${userFind.nome}!`);
-      setUserLoggedd(userFind);
+      setUser(userFind); // envia para app
+      localStorage.setItem("user", JSON.stringify(userFind)); // 👈 salva
+      navigate("/home"); // redireciona para /home
     } else {
-      notificar("erro", "Usuário não foi encontrado");
+      notificar("erro", "Senha inválida");
     }
 
     setSenha("");
   };
-
-  // 👇 Sempre que userLoggedd mudar, exibe no console
-  useEffect(() => {
-    if (userLoggedd) {
-      console.log("Usuário logado:", userLoggedd);
-    }
-  }, [userLoggedd]);
 
   return (
     <div className="login__container">
