@@ -1,0 +1,10 @@
+# Node
+**/node_modules/
+**/.env
+
+# Logs e temporários
+*.log
+.DS_Store
+
+# Vite build
+front_end/dist/

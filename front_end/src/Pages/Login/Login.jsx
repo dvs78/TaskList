@@ -1,20 +1,35 @@
-import React, { useState } from "react";
-import { usuario } from "../../assets/database/usuario.js";
+import React, { useState, useEffect } from "react";
 import { notificar } from "../../Components/Toast.jsx";
+import { buscarLogins } from "../../../api_front/login.js";
+
 const Login = () => {
   const [senha, setSenha] = useState("");
-  const handleLogin = () => {
+  const [userLoggedd, setUserLoggedd] = useState(null);
+
+  const handleLogin = async () => {
+    if (!senha) {
+      return notificar("erro", "Informe a senha");
+    }
+
+    const usuario = await buscarLogins();
     const userFind = usuario.find((f) => f.senha === senha);
 
     if (userFind) {
       notificar("sucesso", `Bem-vindo, ${userFind.nome}!`);
-      console.log("usuario encontrado", userFind);
+      setUserLoggedd(userFind);
     } else {
       notificar("erro", "Usuário não foi encontrado");
     }
 
-    //  else notificar("erro", "usuario não foi encontrado");
+    setSenha("");
   };
+
+  // 👇 Sempre que userLoggedd mudar, exibe no console
+  useEffect(() => {
+    if (userLoggedd) {
+      console.log("Usuário logado:", userLoggedd);
+    }
+  }, [userLoggedd]);
 
   return (
     <div className="login__container">
