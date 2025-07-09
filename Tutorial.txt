@@ -905,45 +905,6 @@ export default Home;
 
 
 
--------------------------------------------------------------------------------------------
-17 PACKAGE.JSON global - TALVEZ AQUI PODE DAR ERRO
-
-Na pasta global
-Digite no terminal
-npm init -y
-
-Alterar o script do package.json global:
-
-"name": "deploy", não fiz isso
-Passar o name para deploy, isso é extremamente importante!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
- "scripts": {
-    "build": "npm install --prefix back-end && npm install --prefix front-end && npm run build --prefix front-end",
-    "start": "npm run start --prefix back-end"
-  },
-
-Essas alterações é para instalar o node_modules no front e back e rodar o vite quando rodar o projeto
-
-Alterar o script do package.json do back-end:
-  "scripts": {
-    "start": "node ./apiBackEnd/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-
-Alterar o script do package.json do front-end:, não fiz isso
-No package.json do front-end dele está assim:
- "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-
-
-Digite no terminal:
-npm run build
-npm run start
-
 
 --------------------------------------------------------------------------------------------
 18 PASSO - CRIAR A CLASSE ESPECÍFICA DAS ROTAS
@@ -995,6 +956,146 @@ export async function getAllTask() {
   }
 }
 
+
+--------------------------------------------------------------------------------------------
+20 PASSO - CÓDIGO PARA CRIAR A PASTA DIST e ARMAZENAR INDEX.HTML
+Ir para pasta back-end, digite no terminal
+npm i path
+
+Na pasta back-end criar o arquivo test.js
+import path, { dirname } from "path";
+
+const __dirname = path.resolve();
+console.log(__dirname);
+
+E rodar no back-end
+node ./test.js
+
+Vai dá a pasta que está executando: C:\Users\Daniel\Documents\Projetos\TaskList\back_end
+
+Depois colocar o arquivo test.js dentro de api e rodar: node .\api\test.js
+Vai dá a pasta que está executando: C:\Users\Daniel\Documents\Projetos\TaskList\back_end
+
+Colar na pasta server.js
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// console.log("__dirname", __dirname);
+
+app.use(express.static(path.join(__dirname, "../../front_end/dist")));
+
+app.get("*any", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../front_end/dist/index.html"));
+});
+
+server.js
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import rotaLogin from "../crud/rotas/rotaLogin.js";
+import rotaTask from "../crud/rotas/rotaTask.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// console.log("__dirname", __dirname);
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+const PORT = 3000;
+
+// Rotas
+app.use("/api/login", rotaLogin);
+app.use("/api/tarefas", rotaTask);
+
+app.use(express.static(path.join(__dirname, "../../front_end/dist")));
+app.get("*any", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../front_end/dist/index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor está escutando na porta ${PORT}`);
+});
+
+
+--------------------------------------------------------------------------------------------
+21 PASSO - NPM RUN BUIL e START
+
+Na pasta global
+Digite no terminal
+npm init -y
+
+Alterar o script do package.json global:
+
+"name": "deploy", não fiz isso
+Passar o name para deploy, isso é extremamente importante!!!!!!!Não fiz isso!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ "scripts": {
+    "build": "npm install --prefix back-end && npm install --prefix front-end && npm run build --prefix front_end",
+    "start": "npm run start --prefix back_end"
+  },
+
+Essas alterações é para instalar o node_modules no front e back e rodar o vite quando rodar o projeto
+
+ALTERAR O NODEMON
+****Retirar o nodemon, não é aceito na produção
+
+Alterar o script do package.json do back-end:
+  "scripts": {
+    "start": "node ./api_back/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+Digite no terminal, rodar na pasta global:
+npm run build
+npm run start
+
+Rodar git add . , precisa estar na pasta mãe
+Rodar git commit -m "" . , precisa estar na pasta mãe
+Rodar git push . , precisa estar na pasta mãe
+
+
+--------------------------------------------------------------------------------------------
+24 PASSO - DEPLOY DO PROJETO NO RENDER
+Vá em + Add new
+Clicar em Web Service
+Clicar no projeto, vai aparecer as opções
+Em Build Command: npm run build
+Em Start Command: npm run start
+Selecionar free
+Clicar em deploy web service
+
+Depoi no VS Code alterar BASE_URL
+// const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const BASE_URL = "https://listatarefa-4pc8.onrender.com/api";
+
+
+--------------------------------------------------------------------------------------------
+25 PASSO - DEPLOY DO BANDO DE DADOS NO RENDER
+Cadastrar o banco de dados no Render
+Vá em dashboard
+Em + Add New, clique e postgres
+Coloque o nome do banco de dados
+Clicar em Free
+Deixar os outros campos como estão
+Clicar em create database
+Vá em dashboard
+Clicar no banco e dados
+Clicar em connect
+Copiar o caminho
+postgresql://viveirolimeira_user:HH73wLSYoxZAbyROuUhSF85Cy80ZdMQ8@dpg-d10r7qq4d50c73b3o320-a/viveirolimeira
+Vá em dashboard
+Clique no projeto
+Crie uma variável de ambiente
+Key: DATABASE_URL                        Valor: postgresql://viveirolimeira_x8xq_user:TJxkazEOmmVCI8hyvM6Tv6JqhmbxGr9Q@dpg-d17i23p5pdvs738dqvqg-a/viveirolimeira_x8xq
+Clique em salvar
+
+
+--------------------------------------------------------------------------------------------
 
 
 --------------------------------------------------------------------------------------------
@@ -1296,127 +1397,10 @@ export default TaskList;
 
 
 --------------------------------------------------------------------------------------------
-21 PASSO - ALTERAR O NODEMON 
-
-****Alterar no packge.json do back-end, retirar o nodemon, não é aceito na produção
-
- "scripts": {
-    "start": "node ./apiBack/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
 
 
---------------------------------------------------------------------------------------------
-22 PASSO - CÓDIGO PARA MANDAR PARA INDEX.HTML
-Ir para pasta back-end, digite no terminal
-npm i path
-
-Na pasta back-end criar o arquivo test.js
-import path, { dirname } from "path";
-
-const __dirname = path.resolve();
-console.log(__dirname);
-
-E rodar no back-end
-node ./test.js
-
-Vai dá a pasta que está executando: C:\Users\Daniel\Documents\Software\VIVEIRO_Limeira\back-end>
-
-Depois colocar o arquivo test.js dentro de api e rodar: node .\api\test.js
-Vai dá a pasta que está executando: C:\Users\Daniel\Documents\Software\VIVEIRO_Limeira\back-end>
-
-Pode recortar o conteúdo do arquivo test.js e colar no arquivo server.js
-// API significa Application Programing interface
-// POST, GET, PUT, DELETE
-// CRUD - CREATE, READ, UPDATE e DELETE
-// Endpoint
-// Middleware, para resolver o problema do front e back que estão em portas diferentes, import cors from "cors";
-
-// API significa Application Programing interface
-import express from "express";
-import cors from "cors";
-import "dotenv/config";
-// import DbClass from "../crud/dbOnline/DbClass.js"; // 👈 importação correta
-import rotaTarefas from "../crud/rotas/rotaTarefas.js";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-// console.log("__dirname", __dirname);
-
-const app = express();
-const PORT = 3000;
-
-app.use(express.json());
-app.use(cors());
-
-// CRIAR A ROTA GET QUE IRÁ COMUNICAR O DB COM SERVIDOR
-// app.get("/", async (req, res) => {
-//   const result = await new DbClass().getAll("tarefas");
-//   res.status(200).send(result);
-// });
-
-app.use("/api/tarefas", rotaTarefas);
-
-app.use(express.static(path.join(__dirname, "../../front-end/dist")));
-
-app.get("*any", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../front-end/dist/index.html"));
-});
-
-app.listen(PORT, () => {
-  console.log(`Servidor está escutando na porta ${PORT}`);
-});
-
---------------------------------------------------------------------------------------------
-23 PASSO - NPM RUN BUIL e START
-Ir para pasta global
-Agora rodar npm run build, precisa estar na pasta mãe
-Agora rodar npm run start, precisa estar na pasta mãe
-
-Rodar git add . , precisa estar na pasta mãe
-Rodar git commit -m "" . , precisa estar na pasta mãe
-Rodar git push . , precisa estar na pasta mãe
 
 
---------------------------------------------------------------------------------------------
-24 PASSO - DEPLOY DO PROJETO NO RENDER
-Vá em + Add new
-Clicar em Web Service
-Clicar no projeto, vai aparecer as opções
-Em Build Command: npm run build
-Em Start Command: npm run start
-Selecionar free
-Clicar em deploy web service
-
-Depoi no VS Code alterar BASE_URL
-// const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-const BASE_URL = "https://listatarefa-4pc8.onrender.com/api";
-
-
---------------------------------------------------------------------------------------------
-25 PASSO - DEPLOY DO BANDO DE DADOS NO RENDER
-Cadastrar o banco de dados no Render
-Vá em dashboard
-Em + Add New, clique e postgres
-Coloque o nome do banco de dados
-Clicar em Free
-Deixar os outros campos como estão
-Clicar em create database
-Vá em dashboard
-Clicar no banco e dados
-Clicar em connect
-Copiar o caminho
-postgresql://viveirolimeira_user:HH73wLSYoxZAbyROuUhSF85Cy80ZdMQ8@dpg-d10r7qq4d50c73b3o320-a/viveirolimeira
-Vá em dashboard
-Clique no projeto
-Crie uma variável de ambiente
-Key: DATABASE_URL                        Valor: postgresql://viveirolimeira_x8xq_user:TJxkazEOmmVCI8hyvM6Tv6JqhmbxGr9Q@dpg-d17i23p5pdvs738dqvqg-a/viveirolimeira_x8xq
-Clique em salvar
-
-
---------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
