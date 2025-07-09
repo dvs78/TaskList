@@ -2,12 +2,11 @@ import axios from "axios";
 
 // const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 // const BASE_URL = "https://listatarefa-4pc8.onrender.com/api";
-const BASE_URL =
-  `${import.meta.env.VITE_API_URL}/api` || "http://localhost:3000/api";
+const BASE_URL = `${import.meta.env.VITE_API_URL}` || "http://localhost:3000";
 
 export async function getTask() {
   try {
-    const resposta = await axios.get(`${BASE_URL}/tarefas`);
+    const resposta = await axios.get(`${BASE_URL}/api/tarefas`);
     return resposta.data;
   } catch (erro) {
     console.error("Erro ao buscar tarefas:", erro.message);
@@ -24,7 +23,7 @@ export async function insertTask(object) {
       tarefa: object.tarefa,
     };
 
-    const response = await axios.post(`${BASE_URL}/tarefas`, newTask);
+    const response = await axios.post(`${BASE_URL}/api/tarefas`, newTask);
     return response.data;
   } catch (error) {
     const msg =

@@ -14,6 +14,12 @@ const Login = ({ setUser }) => {
     }
 
     const usuario = await getLogin();
+
+    if (!Array.isArray(usuario)) {
+      console.error("Resposta inesperada:", usuario);
+      return notificar("erro", "Erro ao buscar usuários");
+    }
+
     const userFind = usuario.find((f) => f.senha === senha);
 
     if (userFind) {
