@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { insertTask } from "../../../api_front/tarefas";
+import { insertTask } from "../../../api_front/tarefas.js";
 // import { deleteByIdTask, updateTask } from "../../../apiFrontEnd/tarefas";
 // import { getTask } from "../../../api_front/tarefas";
 import { notificar } from "../../components/Toast";

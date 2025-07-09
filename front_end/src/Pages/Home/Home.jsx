@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 // import AddTask from "./AddTask";
 import ListTask from "./ListTask";
-import { getTask } from "../../../api_front/tarefas";
+import { getTask } from "../../../api_front/tarefas.js";
 import { notificar } from "../../components/Toast";
 // import BoasVindas from "../../Components/BoasVindas";
 
