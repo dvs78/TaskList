@@ -115,7 +115,7 @@ npm install react-toastify
 npm run dev
 
 No arquivo App.jsx colocar
-import Toast from "./Components/Toast";
+import Toast from "./components/Toast";
 
 function App() {
   return (
@@ -126,7 +126,7 @@ function App() {
   );
 }
 
-Colar o arquivo Toast.jsx na pasta Components
+Colar o arquivo Toast.jsx na pasta components
 Copiar o css do Toast
 
 
@@ -135,6 +135,7 @@ Copiar o css do Toast
 Sistema utilizado para comunicação de 2 entidades, ou seja, 2 computadores
 Criar uma pasta fron_end e colar todos os arquivos criados até agora
 Criar a pasta back_end para montar a API
+!!!!!!!!!!!!!Importante, toda pasta deve ser escrita em minúscula
 Ir para back_end no terminal
 Criar um package.json, digitar o código abaixo. O -y é só para trazer todas as configurações padrão desse projeto aquivos
 npm init -y
@@ -461,7 +462,7 @@ App.jsx
 import React, { useState } from "react";
 import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
-import Toast from "./Components/Toast";
+import Toast from "./components/Toast";
 
 function App() {
   const [user, setUser] = useState(null); // cria o estado do usuário
@@ -481,7 +482,7 @@ export default App;
 
 Login.jsx
 import React, { useState, useEffect } from "react";
-import { notificar } from "../../Components/Toast.jsx";
+import { notificar } from "../../components/Toast.jsx";
 import { buscarLogins } from "../../../api_front/login.js";
 
 const Login = ({ setUser }) => {
@@ -570,7 +571,7 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
-import Toast from "./Components/Toast";
+import Toast from "./components/Toast";
 
 function App() {
   const [user, setUser] = useState(null); // cria o estado do usuário
@@ -598,7 +599,7 @@ O useNavigate é um hook do react-router-dom usado para navegar entre páginas
 import { useNavigate } from "react-router-dom";
 
 import React, { useState, useEffect } from "react";
-import { notificar } from "../../Components/Toast.jsx";
+import { notificar } from "../../components/Toast.jsx";
 import { buscarLogins } from "../../../api_front/login.js";
 import { useNavigate } from "react-router-dom";
 
@@ -666,7 +667,7 @@ import { Navigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
-import Toast from "./Components/Toast";
+import Toast from "./components/Toast";
 
 function App() {
   const [user, setUser] = useState(null); // cria o estado do usuário
@@ -701,7 +702,7 @@ localStorage.setItem("user", JSON.stringify(userFind));
 
 Login.jsx
 import React, { useState, useEffect } from "react";
-import { notificar } from "../../Components/Toast.jsx";
+import { notificar } from "../../components/Toast";
 import { buscarLogins } from "../../../api_front/login.js";
 import { useNavigate } from "react-router-dom";
 
@@ -777,7 +778,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
-import Toast from "./Components/Toast";
+import Toast from "./components/Toast";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -838,7 +839,7 @@ export default Home;
 Como está o Home.jsx!!!!!!!!!!!!!!!!
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { notificar } from "../../Components/Toast";
+import { notificar } from "../../components/Toast";
 
 const Home = ({ user }) => {
   const navigate = useNavigate();
