@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { notificar } from "../../components/Toast.js";
+import { notificar } from "../../components/Toast";
 import { getLogin } from "../../../api_front/login.js";
 import { useNavigate } from "react-router-dom";
 
