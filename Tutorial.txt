@@ -1065,6 +1065,9 @@ Rodar git push . , precisa estar na pasta mãe
 Vá em + Add new
 Clicar em Web Service
 Clicar no projeto, vai aparecer as opções
+
+Em Build Command: cd front_end && npm install && npm run build
+Em Start Command: cd back_end && npm install && npm start
 Em Build Command: npm run build
 Em Start Command: npm run start
 Selecionar free
