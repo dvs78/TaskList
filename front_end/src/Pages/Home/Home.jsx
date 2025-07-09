@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components_temp/Header";
+import Header from "../../components/Header";
 // import AddTask from "./AddTask";
 import ListTask from "./ListTask";
 import { getTask } from "../../../api_front/tarefas";
-import { notificar } from "../../components_temp/Toast";
+import { notificar } from "../../components/Toast";
 // import BoasVindas from "../../Components/BoasVindas";
 
 const Home = ({ user }) => {

@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
-import Toast from "./components_temp/Toast";
+import Toast from "./components/Toast";
 function App() {
   const [user, setUser] = useState(null); // cria o estado do usuário
   const [loading, setLoading] = useState(true); // esperar o carregamento terminar antes de exibir as rotas
