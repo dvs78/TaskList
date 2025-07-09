@@ -14,6 +14,7 @@ const Login = ({ setUser }) => {
     }
 
     const usuario = await getLogin();
+    console.log("Resposta do backend:", usuario);
     const userFind = usuario.find((f) => f.senha === senha);
 
     if (userFind) {

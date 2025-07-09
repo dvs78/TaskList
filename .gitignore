@@ -9,3 +9,6 @@
 front_end/dist/
 
 !front_end/.env
+
+#.env
+back_end/.env
