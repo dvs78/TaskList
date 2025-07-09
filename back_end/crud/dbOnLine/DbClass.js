@@ -1,4 +1,4 @@
-import pool from "./db.js";
+import pool from "../../api_back/connect.js";
 
 class DbClass {
   // Buscar tudo
