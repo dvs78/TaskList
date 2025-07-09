@@ -1060,7 +1060,7 @@ Rodar git push . , precisa estar na pasta mãe
 
 
 --------------------------------------------------------------------------------------------
-24 PASSO - DEPLOY DO PROJETO NO RENDER
+22 PASSO - DEPLOY DO PROJETO NO RENDER
 Vá em + Add new
 Clicar em Web Service
 Clicar no projeto, vai aparecer as opções

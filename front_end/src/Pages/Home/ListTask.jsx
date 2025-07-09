@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { insertTask } from "../../../api_front/tarefas";
 // import { deleteByIdTask, updateTask } from "../../../apiFrontEnd/tarefas";
-import { getTask } from "../../../api_front/tarefas";
+// import { getTask } from "../../../api_front/tarefas";
 import { notificar } from "../../components/Toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
