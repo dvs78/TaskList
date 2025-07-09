@@ -2,7 +2,8 @@ import axios from "axios";
 
 // const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 // const BASE_URL = "https://listatarefa-4pc8.onrender.com/api";
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const BASE_URL =
+  `${import.meta.env.VITE_API_URL}/api` || "http://localhost:3000/api";
 
 export async function getTask() {
   try {

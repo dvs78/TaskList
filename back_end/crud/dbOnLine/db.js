@@ -12,7 +12,23 @@
 
 // console.log((await pool.query("SELECT * FROM login")).rows);
 
+// import pg from "pg";
+
+// const pool = new pg.Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
+
+// export default pool;
+
 import pg from "pg";
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config(); // só carrega o .env local se não estiver em produção
+}
 
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
