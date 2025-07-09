@@ -8,3 +8,5 @@
 
 # Vite build
 front_end/dist/
+
+!front_end/.env
