@@ -1403,6 +1403,63 @@ export default TaskList;
 --------------------------------------------------------------------------------------------
 
 
+✅ Script SQL completo
+sql
+Copiar
+Editar
+-- 🔧 Ativa a extensão de geração de UUID segura
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- 🧱 Cria a tabela LOGIN
+CREATE TABLE IF NOT EXISTS public.login (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  senha TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  nome TEXT NOT NULL UNIQUE
+);
+
+-- 🧱 Cria a tabela TAREFAS com chave estrangeira para LOGIN
+CREATE TABLE IF NOT EXISTS public.tarefas (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  usuario_id UUID NOT NULL,
+  tarefa TEXT NOT NULL,
+  CONSTRAINT fk_usuario FOREIGN KEY (usuario_id)
+    REFERENCES public.login(id)
+    ON DELETE CASCADE
+);
+
+-- 👤 Insere usuários fixos
+INSERT INTO login (senha, nome, email) VALUES
+('0000', 'Daniel', 'dvs.veiga78@gmail.com'),
+('0001', 'Tais', 'tr.abreuveiga@gmail.com');
+
+-- 📝 Insere tarefas associadas a cada usuário (substitua os UUIDs conforme real)
+-- Primeiro, recupere os IDs reais:
+-- SELECT id, nome FROM login;
+
+-- Exemplo com IDs reais (substitua pelos verdadeiros)
+INSERT INTO tarefas (usuario_id, tarefa) VALUES
+('ff89f669-39a2-405f-aed8-49bc4ae951f2', 'Regar todas as plantas da estufa A'),
+('ff89f669-39a2-405f-aed8-49bc4ae951f2', 'Correr'),
+('4195dcbb-7741-4cb2-81a0-0f0ddc775b78', 'Verificar nível de adubo nos viveiros');
+📌 Como usar
+Abra o DBeaver.
+
+Clique com o botão direito no banco tasklist_db_6p09 > Editor SQL.
+
+Cole todo o código acima.
+
+Clique no botão Executar (▶️).
+
+Verifique em “Tabelas” se login e tarefas foram criadas com sucesso.
+
+Teste no seu projeto com:
+
+bash
+Copiar
+Editar
+node .\back_end\inserirUsuarios.js
+Se quiser, posso converter isso num arquivo .sql pronto para baixar ou ajudar a montar um criarTabelas.js para automatizar pelo código. Deseja isso também?
 
 
 --------------------------------------------------------------------------------------------

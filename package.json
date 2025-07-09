@@ -3,7 +3,7 @@
     "axios": "^1.10.0",
     "react-router-dom": "^7.6.3"
   },
-  "name": "deploy",
+  "name": "tasklist",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {},

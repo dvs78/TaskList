@@ -1,8 +1,9 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 
 -- CRIAÇÃO DA TABELA LOGIN
 CREATE TABLE IF NOT EXISTS public.login (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   senha TEXT NOT NULL UNIQUE,
   email TEXT NOT NULL UNIQUE,
   nome TEXT NOT NULL UNIQUE
@@ -11,14 +12,14 @@ CREATE TABLE IF NOT EXISTS public.login (
 
 -- CRIAÇÃO DA TABELA TAREFAS
 CREATE TABLE IF NOT EXISTS public.tarefas (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   usuario_id UUID NOT NULL,
   tarefa TEXT NOT NULL,
   CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES public.login(id) ON DELETE CASCADE
 );
 
-SELECT * FROM login
-SELECT * FROM tarefas
+-- SELECT * FROM login
+-- SELECT * FROM tarefas
 
 -- INSERIR 2 USUÁRIOS
 INSERT INTO login (senha, nome, email)
