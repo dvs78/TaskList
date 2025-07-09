@@ -247,7 +247,7 @@ Instalar o axios no front-end
 --------------------------------------------------------------------------------------------
 10 PASSO - AXIOS
 Middleware, para resolver o problema do front e back que estão em portas diferentes,
-Digitar no terminal do front-end
+Digitar no terminal do front_end
 npm i axios
 
 
