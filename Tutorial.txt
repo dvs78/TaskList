@@ -1092,13 +1092,13 @@ postgresql://viveirolimeira_user:HH73wLSYoxZAbyROuUhSF85Cy80ZdMQ8@dpg-d10r7qq4d5
 Vá em dashboard
 Clique no projeto
 Crie uma variável de ambiente
-Key: DATABASE_URL                        Valor: postgresql://viveirolimeira_x8xq_user:TJxkazEOmmVCI8hyvM6Tv6JqhmbxGr9Q@dpg-d17i23p5pdvs738dqvqg-a/viveirolimeira_x8xq
+Key: DATABASE_URL                        Valor: postgresql://tasklist_db_6p09_user:OBLpH1Ogp9g9ESwthMF4gHjVQgLMI0Fm@dpg-d1n94tjuibrs73e9jsc0-a/tasklist_db_6p09
 Clique em salvar
 
 
 --------------------------------------------------------------------------------------------
 
-
+**/.env
 --------------------------------------------------------------------------------------------
 20 PASSO - COMPONENTE DE BOAS VINDAS, NÃO COLOQUEI
 
