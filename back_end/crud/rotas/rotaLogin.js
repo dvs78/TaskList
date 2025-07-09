@@ -3,7 +3,7 @@ import DbClassLogin from "../dbOnLine/DbClassLogin.js";
 
 const rotas = Router();
 
-// ROTA PARA TUDO
+// Buscar todos logins
 rotas.get("/", async (req, res) => {
   try {
     const result = await new DbClassLogin().getAll();

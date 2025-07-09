@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { notificar } from "../../Components/Toast.jsx";
-import { buscarLogins } from "../../../api_front/login.js";
+import { notificar } from "../../components/Toast.jsx";
+import { getLogin } from "../../../api_front/login.js";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setUser }) => {
@@ -13,7 +13,7 @@ const Login = ({ setUser }) => {
       return notificar("erro", "Informe a senha");
     }
 
-    const usuario = await buscarLogins();
+    const usuario = await getLogin();
     const userFind = usuario.find((f) => f.senha === senha);
 
     if (userFind) {

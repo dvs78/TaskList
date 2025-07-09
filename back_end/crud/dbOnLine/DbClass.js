@@ -1,6 +1,7 @@
 import pool from "./db.js";
 
 class DbClass {
+  // Buscar tudo
   async getAll(tableName, columnsArray = ["*"]) {
     try {
       const columns = columnsArray.map((col) => `"${col}"`).join(", ");
@@ -9,6 +10,27 @@ class DbClass {
       return result.rows;
     } catch (error) {
       console.error("Erro ao buscar dados:", error.message);
+      throw error;
+    }
+  }
+
+  // Inserir
+  async insert(tabela, dados) {
+    console.log("Tentando inserir no banco:", dados);
+
+    try {
+      const colunas = Object.keys(dados);
+      const valores = Object.values(dados);
+
+      const placeholders = colunas.map((_, i) => `$${i + 1}`).join(", ");
+      const colunasFormatadas = colunas.map((col) => `"${col}"`).join(", ");
+
+      const query = `INSERT INTO "${tabela}" (${colunasFormatadas}) VALUES (${placeholders}) RETURNING *`;
+
+      const result = await pool.query(query, valores);
+      return result.rows[0]; // Retorna o registro inserido
+    } catch (error) {
+      console.error("Erro ao inserir tarefa:", error.message);
       throw error;
     }
   }

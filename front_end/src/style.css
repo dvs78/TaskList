@@ -45,7 +45,6 @@ button {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: var(--fundo-principal);
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -57,7 +56,7 @@ button {
   padding-top: 50px;
   /* justify-content: center; */
   align-items: center;
-  /* background-color: var(--fundo-principal); */
+  background-color: var(--fundo-principal);
   color: var(--texto);
   flex: 1;
 
@@ -109,8 +108,9 @@ button {
   position: sticky;
   top: 0;
   z-index: 100;
-  margin: 10px;
-  padding: 10px;
+  /* margin: 10px; */
+  padding: 12px 20px;
+  background-color: var(--fundo-principal);
   color: var(--texto);
 }
 
@@ -141,6 +141,135 @@ button {
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* HOME */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin: 10px; */
+  /* padding: 10px; */
+  background-color: var(--texto);
+  overflow: hidden; /* Impede que a task__list estoure */
+}
+
+.task__add {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 20px 5px 0px 5px;
+  border-radius: 8px;
+}
+
+.btn__add {
+  padding: 5px 8px;
+  color: var(--fundo-principal);
+  font-size: 20px;
+  border-radius: 100%;
+  background-color: var(--fundo-principal);
+  color: var(--texto);
+}
+
+.btn__add:hover {
+  background-color: var(--texto);
+  color: var(--fundo-principal);
+}
+
+.task__list {
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  border-radius: 5px;
+  background-color: var(--texto);
+  padding: 10px;
+}
+
+.task__list-item {
+  font-family: system-ui, sans-serif;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--fundo-principal);
+  color: var(--texto);
+  margin: 5px;
+  border-radius: 8px;
+}
+
+.input__new-task {
+  margin-right: 10px;
+  padding: 5px;
+  font-size: 15px;
+  border: 1px solid var(--fundo-principal);
+  border-radius: 4px;
+  min-width: 245px;
+}
+
+.input__edit {
+  padding: 5px;
+  font-size: 15px;
+  border: 1px solid var(--fundo-principal);
+  border-radius: 4px;
+  min-width: 245px;
+}
+
+.btn__task {
+  display: flex;
+}
+
+.btn__remove {
+  border-radius: 100%;
+  margin: 5px;
+  padding: 5px 8px;
+  color: var(--task-remove);
+  transition: border-color 0.25s;
+}
+
+.btn__remove:hover {
+  color: var(--texto);
+  background-color: var(--task-remove);
+}
+
+.btn__edit {
+  border-radius: 100%;
+  margin: 5px;
+  padding: 5px 8px;
+  color: var(--task-concluida);
+  transition: border-color 0.25s;
+}
+
+.btn__edit:hover {
+  color: var(--fundo-principal);
+  background-color: var(--texto);
+}
+
+.btn__cancel {
+  border-radius: 100%;
+  margin: 5px;
+  padding: 5px 8px;
+  color: var(--task-remove);
+  transition: border-color 0.25s;
+}
+
+.btn__cancel:hover {
+  color: var(--texto);
+  background-color: var(--task-remove);
+}
+
+.btn__save {
+  border-radius: 100%;
+  margin: 5px;
+  padding: 5px 8px;
+  color: var(--task-concluida);
+  transition: border-color 0.25s;
+}
+
+.btn__save:hover {
+  color: var(--fundo-principal);
+  background-color: var(--texto);
+}
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* TOAST */

@@ -30,4 +30,5 @@ VALUES
 INSERT INTO tarefas (usuario_id, tarefa)
 VALUES
   ('ff89f669-3a92-405f-aed8-49bca4e951f2', 'Regar todas as plantas da estufa A'),
+  ('ff89f669-3a92-405f-aed8-49bca4e951f2', 'Correr'),
   ('4195dbcb-7741-4cb2-81a0-0f00dc775b78', 'Verificar nível de adubo nos viveiros');
