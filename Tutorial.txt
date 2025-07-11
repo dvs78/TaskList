@@ -1477,6 +1477,25 @@ npx cross-env vite build
 
 Atualize o package.json do front_end
 "build": "cross-env vite build",
+
+
+Solução
+Substitua essa linha no index.html:
+<script type="module" src="/src/main.jsx"></script>
+
+Por:
+<script type="module" src="/assets/index-*.js"></script>
+
+depois da alteração do index.html
+foi preciso criar a pasta static.json no front_end
+{
+  "routes": {
+    "/**": "index.html"
+  }
+}
+
+Isso instrui o Render a redirecionar todas as rotas para index.html, evitando o erro de carregamento do JS.
+
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
