@@ -1462,6 +1462,11 @@ node .\back_end\inserirUsuarios.js
 Se quiser, posso converter isso num arquivo .sql pronto para baixar ou ajudar a montar um criarTabelas.js para automatizar pelo código. Deseja isso também?
 
 
+
+cd front_end
+Remove-Item -Recurse -Force dist
+npm run build
+
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
