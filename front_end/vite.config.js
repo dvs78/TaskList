@@ -2,9 +2,17 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
+// export default defineConfig({
+//   plugins: [react()],
+//   build: {
+//     target: "esnext", // para onde os arquivos serão exportados
+//   },
+// });
+
 export default defineConfig({
+  base: "/TaskList/",
   plugins: [react()],
   build: {
-    target: "esnext", // para onde os arquivos serão exportados
+    target: "esnext",
   },
 });

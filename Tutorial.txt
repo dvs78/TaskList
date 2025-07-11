@@ -1471,7 +1471,11 @@ git add -A
 git commit -m "🔥 Forçando commit de todos os arquivos atualizados do build"
 git push
 
+Rodar dentro do fron_end para garantir a leitura do .env dentro deo fron_end
+npm install --save-dev cross-env
 
+Atualize o package.json do front_end
+"build": "cross-env vite build",
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
