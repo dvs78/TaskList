@@ -9,37 +9,49 @@
 // });
 
 // export default pool;
-
-import path from "path";
-import { fileURLToPath } from "url";
+import pg from "pg";
 import dotenv from "dotenv";
 
-// Corrigir o caminho absoluto do .env
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// ⚠️ Carrega o .env ANTES de qualquer uso do process.env
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
-
-console.log("✔️ DB_USER:", process.env.DB_USER); // Agora vai funcionar
-
-import pg from "pg";
-
-console.log("🔐 Conectando com:", {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD ? "********" : "NÃO DEFINIDA",
-});
+dotenv.config();
 
 const pool = new pg.Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-  ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
 });
 
 export default pool;
+
+// Esse código deu certo
+// import path from "path";
+// import { fileURLToPath } from "url";
+// import dotenv from "dotenv";
+
+// // Corrigir o caminho absoluto do .env
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// // ⚠️ Carrega o .env ANTES de qualquer uso do process.env
+// dotenv.config({ path: path.resolve(__dirname, "../.env") });
+
+// console.log("✔️ DB_USER:", process.env.DB_USER); // Agora vai funcionar
+
+// import pg from "pg";
+
+// console.log("🔐 Conectando com:", {
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD ? "********" : "NÃO DEFINIDA",
+// });
+
+// const pool = new pg.Pool({
+//   user: process.env.DB_USER,
+//   host: process.env.DB_HOST,
+//   database: process.env.DB_DATABASE,
+//   password: process.env.DB_PASSWORD,
+//   port: process.env.DB_PORT,
+//   ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
+// });
+
+// export default pool;
 
 // const pool = new pg.Pool({
 //   user: process.env.DB_USER,
