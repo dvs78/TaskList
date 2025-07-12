@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "postinstall": "cross-env NODE_ENV=$NODE_ENV node ../vincularTasklist.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
