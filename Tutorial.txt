@@ -1498,6 +1498,17 @@ Isso instrui o Render a redirecionar todas as rotas para index.html, evitando o 
 
 Colocar no Render
 VITE_API_URL=https://tasklist-g5wi.onrender.com
+
+
+
+
+Perfeito! Com base no seu package.json dentro da pasta front_end, o script build está correto (vite build), mas você ainda não tem o Vite instalado nas dependências. Isso é exatamente o que está causando o erro no Render.
+
+✅ O que falta?
+Você precisa instalar o Vite como dependência de desenvolvimento:
+
+cd front_end
+npm install -D vite @vitejs/plugin-react
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
