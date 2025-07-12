@@ -8,7 +8,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "build": "npm install --prefix back_end && npm install --prefix front_end && npm run build --prefix front_end",
+    "build": "node build.js",
     "start": "npm run start --prefix back_end"
   },
   "repository": {

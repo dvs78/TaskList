@@ -1509,6 +1509,15 @@ Você precisa instalar o Vite como dependência de desenvolvimento:
 
 cd front_end
 npm install -D vite @vitejs/plugin-react
+
+trocar package.json
+ "scripts": {
+    "build": "npm install --prefix back_end && npm install --prefix front_end && npm run build --prefix front_end",
+    "start": "npm run start --prefix back_end"
+  },
+
+para isso
+
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
