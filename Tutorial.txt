@@ -1496,6 +1496,8 @@ foi preciso criar a pasta static.json no front_end
 
 Isso instrui o Render a redirecionar todas as rotas para index.html, evitando o erro de carregamento do JS.
 
+Colocar no Render
+VITE_API_URL=https://tasklist-g5wi.onrender.com
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
