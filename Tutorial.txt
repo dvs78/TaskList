@@ -1078,6 +1078,15 @@ Depoi no VS Code alterar BASE_URL
 const BASE_URL = "https://listatarefa-4pc8.onrender.com/api";
 
 Usar o DBeaver para checar conexão
+
+Digite no terminal, rodar na pasta global:
+npm run build
+npm run start
+
+Rodar git add . , precisa estar na pasta mãe
+Rodar git commit -m "" . , precisa estar na pasta mãe
+Rodar git push . , precisa estar na pasta mãe
+
 --------------------------------------------------------------------------------------------
 25 PASSO - DEPLOY DO BANDO DE DADOS NO RENDER
 Cadastrar o banco de dados no Render
@@ -1151,7 +1160,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 
 --------------------------------------------------------------------------------------------
-20 PASSO - NOTIFICÇÕES PARA Ok ou CANCELAR
+20 PASSO - NOTIFICAÇÕES PARA Ok ou CANCELAR
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
