@@ -1,21 +1,84 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
-/* ----- FAZER O RESET ----- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&display=swap");
+
+/* ROOT //////////////////////////// */
+:root {
+  --fundo-principal: #1e1e2f;
+  --texto: #f8f8f2;
+  --btn-add: #8be9fd;
+  --btn-hover: #50fa7b;
+  --task-concluida: #6272a4;
+  --task-remove: #ff5555;
+}
+
+/* GERAL //////////////////////////// */
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+input {
+  font-family: system-ui, sans-serif;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* APP //////////////////////////// */
+.app_components {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* HEADER //////////////////////////// */
 .header {
+  width: 100%;
   font-family: "Montserrat", sans-serif;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
-  /* margin: 10px; */
   padding: 12px 20px;
   background-color: var(--fundo-principal);
   color: var(--texto);
+}
+
+/* ADDTASK //////////////////////////// */
+.task__add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  margin: 20px 5px 0px 5px;
+  border-radius: 8px;
+}
+
+/* HOME //////////////////////////// */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin: 10px; */
+  /* padding: 10px; */
+  background-color: var(--texto);
+  overflow: hidden; /* Impede que a task__list estoure */
 }
