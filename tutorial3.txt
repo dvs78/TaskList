@@ -1,0 +1,220 @@
+-------------------------------------------------------------------------------------------
+1 PASSO - INSTALAR O VITE
+Criar a pasta front-end
+Digitar no terminal, pasta front-end:
+npm create vite@latest .
+O espaço e ponto e para inidicar a criação do vite justamente na pasta em questão
+React
+JavaScript
+
+Foi criado vários arquivos, assim como package.json
+
+Para instalar as dependências que estão no package.json
+Digitar no terminal, pasta front-end:
+npm install
+Será criado a pasta node_modules
+
+Para rodar o script que está no package.json
+Digitar no terminal, pasta front-end:
+npm run dev
+
+Deletar o README.md
+Deixar o arquivo App.jsx assim:
+import "./App.css";
+
+// Componentes = funções
+function App() {
+  return <></>;
+}
+export default App;
+
+Deletar reac.svg, está em src/assets
+Retirar do index.html => <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+Alterar o title
+
+Deletar a pasta public
+
+Em assets, criar o style.css na mesma pasta do main.jsx
+Colar bem no início do style.css:
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
+/* ----- FAZER O RESET ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+Em main.jsx, importar o style.css do projeto
+import "./style.css";
+
+Deletar o index.css
+Deletar o App.css e retitar do App.jsx
+
+
+-------------------------------------------------------------------------------------------
+2 PASSO - INSTALAR CÓDIGO DO FONT AWESOME React
+Ir no site, clicar em docs => view the docs => Integrations => React => Set Up with React
+
+Rolar para baixo até Add SVG Core e pegar o código
+Digitar no terminal, pasta front-end:
+npm i --save @fortawesome/fontawesome-svg-core
+
+Rolar mais para baixo até Add Icons Packages e pegar o código em Free SVG Icon Package
+Digitar no terminal tudo de uma vez só, pasta front-end:
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
+
+Rolar mais para baixo até Add React Component e pegar o código
+Digitar no terminal, pasta front-end:
+npm i --save @fortawesome/react-fontawesome@latest
+
+
+-----------------------------------------------------------------------------------------
+3 PASSO - CRIAR O HEADER
+Em src criar a pasta components e criar o arquivo Header.jsx
+Em App.jsx importar o Header.jsx
+O arquivo App.jsx vai ficar assim
+import Header from "./components/Header";
+
+function App() {
+  return (
+    <>
+      <Header />
+    </>
+  );
+}
+export default App;
+
+
+Colocar no arquivo onde for utilizar o ícone
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+E para instalar o ícnone precisa importar - React / Individual import
+O arquivo Header ficará assim:
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouseChimney } from "@fortawesome/free-solid-svg-icons";
+
+const Header = () => {
+  return (
+    <div>
+      Olá mundo
+      <FontAwesomeIcon icon={faHouseChimney} />
+    </div>
+  );
+};
+
+export default Header;
+
+
+-----------------------------------------------------------------------------------------
+4 PASSO - SUBIR PROJETO PARA O GITHUB
+Antes, no arquivo .gitignore, deve ficar assim:
+node_modules
+.env
+
+Abrir o github:
+Ir em new
+Colocar o nome do repositório, ex: TaskList
+Deixar em público
+Clicar em criar repositório
+
+Agora é ir para o VS Code 
+Abrir na pasta global
+Digite no terminal:
+git init, vai deixar os arquivos U
+git add .
+git commit -m "Fazendo o 1 commit"
+Em or push an existing repository from the comnad line
+Copiar todos os códigos e rodar no terminal:
+git remote add origin https://github.com/dvs78/TaskList.git
+git branch -M main
+git push -u origin main
+
+Avisos de "LF will be replaced by CRLF"
+Isso é apenas um aviso de que as quebras de linha no seu projeto (LF — estilo Unix) estão sendo convertidas para o estilo do Windows (CRLF). Eles não impedem o funcionamento nem o commit dos arquivos.
+
+Digite no terminal:
+git config --global core.autocrlf true
+Esse comando faz o Git converter LF para CRLF no checkout e reverter para LF no commit.
+
+
+-----------------------------------------------------------------------------------------
+4 CRIANDO AS ROTAS DO PROJETO
+Instalar o gerenciador de rotas
+Digitar no terminal, pasta front-end:
+npm i react-router-dom
+
+
+Em App.jsx, importar BrowserRouter, Routes e Route para gerenciar as rotas:
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+Dentro da pasta src criar a pasta Pages e dentro delas ciar a pasta Login e Home e dentro de cada pasta criar os arquivos Login e Home
+Dentro da pasta components, criar o arquivo Header
+
+Deixar a página App.jsx, assim:
+import Header from "./components/Header";
+import Login from "./pages/Login/Login";
+import Home from "./pages/Home/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+export default App;
+
+
+-----------------------------------------------------------------------------------------
+5 PASSO - CRIAR A PÁGINA LOGIN
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // import para navegação
+
+const Login = () => {
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate(); // hook do react-router
+
+  const handleLogin = () => {
+    // Aqui você pode validar a senha
+    if (senha === "1234") {
+      // Se a senha estiver certa, vai para Home
+      navigate("/home");
+    } else {
+      alert("Senha incorreta!");
+    }
+  };
+
+  return (
+    <div className="login__container">
+      <h1>Login</h1>
+      <label className="label__login" htmlFor="input__login">
+        Digite sua senha:
+      </label>
+      <input
+        type="password"
+        name="input__login"
+        placeholder="senha"
+        value={senha}
+        onChange={(e) => {
+          setSenha(e.target.value);
+        }}
+      />
+      <button className="btn__enter" onClick={handleLogin}>
+        <h3>Entrar</h3>
+      </button>
+    </div>
+  );
+};
+
+export default Login;
+
+
+-----------------------------------------------------------------------------------------
