@@ -96,13 +96,15 @@ O arquivo Header ficará assim:
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouseChimney } from "@fortawesome/free-solid-svg-icons";
+import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
-    <div>
-      Olá mundo
+    <header className="header">
+      <FontAwesomeIcon icon={faCircleLeft} />
+      <h1>Daniel</h1>
       <FontAwesomeIcon icon={faHouseChimney} />
-    </div>
+    </header>
   );
 };
 
@@ -126,17 +128,17 @@ Abrir na pasta global
 Digite no terminal:
 git init, vai deixar os arquivos U
 git add .
-git commit -m "Fazendo o 1 commit"
+git commit -m "Salavndo projeto no Github"
 Em or push an existing repository from the comnad line
 Copiar todos os códigos e rodar no terminal:
 git remote add origin https://github.com/dvs78/TaskList.git
 git branch -M main
 git push -u origin main
 
-Avisos de "LF will be replaced by CRLF"
+Avisos de "LF will be replaced by CRLF" --------- NÃO USEI
 Isso é apenas um aviso de que as quebras de linha no seu projeto (LF — estilo Unix) estão sendo convertidas para o estilo do Windows (CRLF). Eles não impedem o funcionamento nem o commit dos arquivos.
 
-Digite no terminal:
+Digite no terminal: --------- NÃO USEI
 git config --global core.autocrlf true
 Esse comando faz o Git converter LF para CRLF no checkout e reverter para LF no commit.
 
