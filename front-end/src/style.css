@@ -28,7 +28,8 @@ body,
   height: 100%;
 }
 
-input {
+input,
+p {
   font-family: system-ui, sans-serif;
 }
 
@@ -43,6 +44,57 @@ button {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+/* LOGIN //////////////////////////// */
+.login__container {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: var(--fundo-principal);
+  color: var(--texto);
+  flex: 1;
+
+  > label {
+    margin-top: 15px;
+    font-size: 15px;
+  }
+  > input {
+    padding: 5px;
+    font-size: 15px;
+
+    margin-top: 5px;
+    border: 2px solid var(--texto);
+    border-radius: 4px;
+  }
+}
+
+.btn__enter {
+  font-family: "Segoe UI", sans-serif;
+  text-align: center;
+  margin-top: 15px;
+  padding: 7px 40px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--texto);
+  transition: all 0.2s ease;
+  transition-property: border;
+  background-color: var(--task-concluida);
+}
+
+.btn__enter:hover {
+  border: 2px solid var(--task-concluida);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.btn__enter:focus {
+  border: 2px solid var(--task-concluida);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* HEADER //////////////////////////// */
@@ -60,6 +112,18 @@ button {
   color: var(--texto);
 }
 
+/* HOME //////////////////////////// */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin: 10px; */
+  /* padding: 10px; */
+  background-color: var(--texto);
+  overflow: hidden; /* Impede que a task__list estoure */
+}
+
 /* ADDTASK //////////////////////////// */
 .task__add {
   display: flex;
@@ -71,14 +135,45 @@ button {
   border-radius: 8px;
 }
 
-/* HOME //////////////////////////// */
-.main {
-  flex: 1;
+/* TASKLIST //////////////////////////// */
+.task__list {
+  /* flex: 1; */
   display: flex;
-  flex-direction: column;
   align-items: center;
-  /* margin: 10px; */
-  /* padding: 10px; */
+  justify-content: space-between;
+  overflow-y: auto;
+  width: 60%;
+  border-radius: 5px;
   background-color: var(--texto);
-  overflow: hidden; /* Impede que a task__list estoure */
+  padding: 10px;
+}
+
+.btn__task {
+  display: flex;
+}
+
+.btn__remove {
+  border-radius: 100%;
+  margin: 5px;
+  padding: 5px 8px;
+  color: var(--task-remove);
+  transition: border-color 0.25s;
+}
+
+.btn__remove:hover {
+  color: var(--texto);
+  background-color: var(--task-remove);
+}
+
+.btn__edit {
+  border-radius: 100%;
+  margin: 5px;
+  padding: 5px 8px;
+  color: var(--task-concluida);
+  transition: border-color 0.25s;
+}
+
+.btn__edit:hover {
+  color: var(--fundo-principal);
+  background-color: var(--texto);
 }

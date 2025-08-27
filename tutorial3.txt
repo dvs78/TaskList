@@ -144,37 +144,6 @@ Esse comando faz o Git converter LF para CRLF no checkout e reverter para LF no 
 
 
 -----------------------------------------------------------------------------------------
-4 CRIANDO AS ROTAS DO PROJETO
-Instalar o gerenciador de rotas
-Digitar no terminal, pasta front-end:
-npm i react-router-dom
-
-
-Em App.jsx, importar BrowserRouter, Routes e Route para gerenciar as rotas:
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-Dentro da pasta src criar a pasta Pages e dentro delas ciar a pasta Login e Home e dentro de cada pasta criar os arquivos Login e Home
-Dentro da pasta components, criar o arquivo Header
-
-Deixar a página App.jsx, assim:
-import Header from "./components/Header";
-import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
-export default App;
-
-
------------------------------------------------------------------------------------------
 5 PASSO - CRIAR A PÁGINA LOGIN
 
 import React, { useState } from "react";
@@ -218,5 +187,59 @@ const Login = () => {
 
 export default Login;
 
+
+-----------------------------------------------------------------------------------------
+6. CRIANDO AS ROTAS DO PROJETO
+Instalar o gerenciador de rotas
+Digitar no terminal, pasta front-end:
+npm i react-router-dom
+
+Em App.jsx, importar BrowserRouter, Routes e Route para gerenciar as rotas:
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+Dentro da pasta src criar a pasta Pages e dentro delas ciar a pasta Login e Home e dentro de cada pasta criar os arquivos Login e Home
+Dentro da pasta components, criar o arquivo Header
+
+Deixar a página App.jsx, assim:
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+function App() {
+  return (
+    <div className="app_components">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+export default App;
+
+
+-----------------------------------------------------------------------------------------
+7. CRI
+
+
+-----------------------------------------------------------------------------------------
+7. CRI
+
+-----------------------------------------------------------------------------------------
+7. CRI
+
+-----------------------------------------------------------------------------------------
+7. CRI
+
+-----------------------------------------------------------------------------------------
+7. CRI
+
+-----------------------------------------------------------------------------------------
+7. CRI
+
+-----------------------------------------------------------------------------------------
+7. CRI
 
 -----------------------------------------------------------------------------------------
