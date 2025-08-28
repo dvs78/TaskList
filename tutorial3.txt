@@ -135,10 +135,10 @@ git remote add origin https://github.com/dvs78/TaskList.git
 git branch -M main
 git push -u origin main
 
-Avisos de "LF will be replaced by CRLF" --------- NÃO USEI
+Avisos de "LF will be replaced by CRLF"
 Isso é apenas um aviso de que as quebras de linha no seu projeto (LF — estilo Unix) estão sendo convertidas para o estilo do Windows (CRLF). Eles não impedem o funcionamento nem o commit dos arquivos.
 
-Digite no terminal: --------- NÃO USEI
+Digite no terminal:
 git config --global core.autocrlf true
 Esse comando faz o Git converter LF para CRLF no checkout e reverter para LF no commit.
 
@@ -257,11 +257,98 @@ O front-end roda na porta 5175
 O console.log no back-end roda pelo node no terminal
 O console.log no front-end roda pelo inspecionar, na tela
 
------------------------------------------------------------------------------------------
-7. CRI
+Toda vez que mudar o arquivo, para não ter que matar o back-end e atualizar, passar a instrução node --watch ./index.js
+
 
 -----------------------------------------------------------------------------------------
-7. CRI
+9. CRIANDO REQUISIÇÃO GET =  ENDPOINT "/"
+
+No back-end chama endpoint, https://localhost:3000
+O front-end chama rota, https://localhost:5173
+
+Por enquanto o endpoint https://localhost:3000 vai aparecer Cannot GET /
+
+GET - Pegar informações
+PUT/PATCH - Editar informações
+DELETE - Deletar informações
+POST - Criar informações
+
+Vamos passar as intruções antes de escutar (app.listen)
+
+Minha 1 resposta para requisição GET
+import express from "express";
+
+// Colocar todas as funções do express na variável app
+const app = express();
+
+// Criando requisição get = endpoint com barra
+app.get("/", (req, res) => {
+  res.send("Olá, mundo!");
+});
+
+Agora o endpoint https://localhost:3000 vai aparecer Olá, mundo!
+
+// Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen(3000, () =>
+  console.log("Meu servidor está rodando na porta http://localhost:3000")
+);
+
+Toda vez que mudar o arquivo, para não ter que matar o back-end e atualizar, passar a instrução node --watch ./index.js
+
+
+-----------------------------------------------------------------------------------------
+10. CRIANDO REQUISIÇÃO POST =  ENDPOINT "/"
+
+Toda requisição na web, é do tipo get, por isso é necessário baixar um programa para testar outro tipos de requisções, ex:
+app.post("/", (req, res) => {
+  res.send("Informação nova criada com sucesso!");
+});
+
+Utilizar o aplicativo reqbin
+Digitar no google:
+reqbin
+Escrecer o caminho http://localhost:3000 e escolher a requisição
+
+
+Parei aqui!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+// Utilizar o Middleware abaixo antes dos endponits. Toda requisição com res.json, transforma e json, ou seja, para todo body que chegar tranforma em json
+app.use(express.json());
+
+Minha estrutura está assim, estou usando reqbin
+import express from "express";
+
+// Colocar todas as funções do express na variável app
+const app = express();
+
+// Middleware: Middleware: toda requisição com res.json, transforma e json, ou seja,todo body que chegar transforma em json
+app.use(express.json());
+
+// Criando requisição get = endpoint com barra, só tem resposta
+app.get("/", (req, res) => {
+  res.send("Olá, Galo!");
+});
+
+// Criando requisição get = endpoint com barra, tem requisição (body) e resposta (params)
+app.post("/", (req, res) => {
+  const body = req.body;
+  console.log(body.nome);
+  // res.send("Informação nova criada com sucesso!" );
+  res.json({ nome: body.nome });
+});
+
+// Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen(3000, () =>
+  console.log("Meu servidor está rodando na porta http://localhost:3000")
+);
+
+No terminal vai aparecer o nome devido o console.log e no reqbin vai aparecer o nome devido o res.json, lembandro que eu tenho um objeto no reqbin, só pode usar um res
+{"nome":"Daniel",
+ "imersao": "javascript"}
+
+
+Toda vez que mudar o arquivo, para não ter que matar o back-end e atualizar, passar a instrução node --watch ./index.js
 
 -----------------------------------------------------------------------------------------
 7. CRI
