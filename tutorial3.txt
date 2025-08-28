@@ -221,8 +221,41 @@ export default App;
 
 
 -----------------------------------------------------------------------------------------
-7. CRI
+7. CRIAÇÃO DO BACK-END
+Vamos criar a API do projeto. Preparar o projeto para receber requisição e resposta 
+Então vamos criar a pasta back-end e vamos precisar do package.json
+Digitar no terminal, na pasta back-end:
+npm init -y
+Esse -y é para concordar com tudo que será proposto para configurar, se quiser configurar personalizado, basta digitar = npm init, mas nessa altura do projeto não tem necessidade
 
+No package.json do back-end, colocar depois de  "description": "", isso aqui  "type": "module",
+
+
+-----------------------------------------------------------------------------------------
+8. CRIAÇÃO DO EXPRESS
+Biblioteca do back-end
+Vamos instalar o express
+Digitar no terminal, na pasta back-end:
+npm i express
+
+Criar o arquivo index.js (server.js) no back-end, é o servidor da api
+Só para lembrar que no package.json vai criar assim "main": "index.js", será o arquivo server.js. Por isso vamos criar o arquivo index.js se quiser criar server.js, alterar no package.json assim "main": "server.js"
+
+Vamos importar o express em index.js
+import express from "express";
+
+Colocar todas as funções do express na variável app
+const app = express();
+
+Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen(3000, () => {
+  console.log("Meu servidor está rodando na porta https://localhost:3000");
+});
+
+O back-end roda na porta 3000
+O front-end roda na porta 5175
+O console.log no back-end roda pelo node no terminal
+O console.log no front-end roda pelo inspecionar, na tela
 
 -----------------------------------------------------------------------------------------
 7. CRI

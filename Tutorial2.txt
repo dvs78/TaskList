@@ -1,0 +1,627 @@
+FAZER O RESET
+Criar o border-box no css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+1. INSTALAR O VITE
+Digitar no terminal, pasta front-end:
+npm create vite@latest .
+Foi criado vários arquivos, assim como package.json
+
+Para instalar as dependências que estão no package.json
+Digitar no terminal, pasta front-end:
+npm install
+Será criado a pasta node_modules
+
+Para rodar o script que está no package.json
+Digitar no terminal, pasta front-end:
+npm run dev
+
+Deletar o README.md
+Deixar o arquivo App.jsx assim:
+import "./App.css";
+
+// Componentes = funções
+function App() {
+  return <></>;
+}
+export default App;
+
+Deletar reac.svg, está em src/assets
+Retirar do index.html => <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+Alterar o title
+
+Deletar a pasta public
+
+Criar o style.css na mesma pasta do main.jsx
+Colar bem no início do css:
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
+
+Em main.jsx, importar o style.css do projeto
+import "./style.css";
+
+Deletar o index.css
+Deletar o App.css e retitar do App.jsx
+
+
+-------------------------------------------------------------------------------------------
+2 PASSO - INSTALAR CÓDIGO DO FONT AWESOME React
+Ir no site, clicar em docs => view the docs => Integrations => React => Set Up with React
+
+Rolar para baixo até Add SVG Core e pegar o código e rodar no terminal
+npm i --save @fortawesome/fontawesome-svg-core
+
+Rolar mais para baixo até Add Icons Packages e pegar o código em Free SVG Icon Package e rodar no terminal tudo de uma vez só
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
+
+Rolar mais para baixo até Add React Component e pegar o código e rodar no terminal
+npm i --save @fortawesome/react-fontawesome@latest
+
+Colocar no arquivo onde for utilizar o ícone
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+E para instalar o ícnone precisa importar - React / Individual import
+<FontAwesomeIcon icon={faCirclePlay} />
+
+
+-----------------------------------------------------------------------------------------
+3 PASSO - SUBIR PROJETO PARA O GITHUB
+Antes, no arquivo .gitignore, deve ficar assim:
+node_modules
+.env
+
+Abrir o github:
+Ir em new
+Colocar o nome do repositório, ex: TaskList
+Deixar em público
+Clicar em criar repositório
+
+Agora é ir para o VS Code 
+Abrir na pasta global
+Digite no terminal:
+git init, vai deixar os arquivos U
+git add .
+git commit -m "Fazendo o 1 commit"
+Em or push an existing repository from the comnad line
+Copiar todos os códigos e rodar no terminal:
+Ex:
+git remote add origin https://github.com/dvs78/TaskList.git
+git branch -M main
+git push -u origin main
+
+Avisos de "LF will be replaced by CRLF"
+Isso é apenas um aviso de que as quebras de linha no seu projeto (LF — estilo Unix) estão sendo convertidas para o estilo do Windows (CRLF). Eles não impedem o funcionamento nem o commit dos arquivos.
+
+Digite no terminal:
+git config --global core.autocrlf true
+Esse comando faz o Git converter LF para CRLF no checkout e reverter para LF no commit.
+
+
+-----------------------------------------------------------------------------------------
+4. CRIAR O COMPONENTE Header.jsx
+Criar a pasta components dentro de src
+Criar Header.jsx dentro da pasta components
+Chamar o componente em App.jsx
+import Header from "./components/Header";
+// Componentes = funções
+function App() {
+  console.log("Estou no 1 componente");
+  return <Header />;
+}
+
+export default App;
+
+
+-----------------------------------------------------------------------------------------
+5. CRIANDO AS ROTAS DO PROJETO
+Instalar o gerenciador de rotas
+Digitar no terminal, pasta front-end:
+npm i react-router-dom
+
+Em App.jsx, importar BrowserRouter, Routes e Route para gerenciar as rotas:
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+Colocar os componentes dentro de BrowserRouter, fica assim:
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { Home } from "./pages/Home";
+import Product from "./pages/Product";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Home />
+      <Product />
+      <Footer />
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+Para rotas específicas, colocar Routes e Route
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { Home } from "./pages/Home";
+import Product from "./pages/Product";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product" element={<Product />} />
+      </Routes>
+
+      <Footer />
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+
+-----------------------------------------------------------------------------------------
+6. CRIAÇÃO DO ESQUELETO DA API COM EXPRESS
+Preparar o projeto para receber requisição e resposta
+Então vamos criar o back-end e vamos precisar do package.json
+Digitar no terminal, na pasta back-end:
+npm init -y
+Esse -y é para concordar com tudo que será proposto para configurar, se quiser configurar personalizado, basta digitar = npm init, mas nessa altura do projeto não tem necessidade
+
+No package.json do back-end, colocar depois de  "description": "", isso aqui  "type": "module",
+
+Vamos instalar o express
+Digitar no terminal, na pasta back-end:
+npm i express
+
+Criar o arquivo index.js no back-end
+Só para lembrar que no package.json vai criar assim "main": "index.js", será o arquivo server.js. Por isso vamos criar o arquivo index.js se quiser criar server.js, alterar no package.json assim "main": "server.js"
+
+Vamos importar o express em index.js
+import express from "express";
+
+Colocar todas as funções do express na variável app
+const app = express();
+
+Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen(3000, () => {
+  console.log("Meu servidor está rodando na porta https://localhost:3000");
+});
+
+O back-end roda na porta 3000
+O front-end roda na porta 5175
+O console.log no back-end roda pelo node no terminal
+O console.log no front-end roda pelo inspecionar, na tela
+
+
+-----------------------------------------------------------------------------------------
+7. CRIANDO REQUISIÇÃO GET =  ENDPOINT "/"
+
+No back-end chama endpoint, https://localhost:3000/
+O front-end chama rota, https://localhost:5173/
+
+GET - Pegar informações
+PUT/PATCH - Editar informações
+DELETE - Deletar informações
+POST - Criar informações
+
+Vamos passar as intruções antes de escutar (app.listen)
+
+Minha 1 resposta para requisição GET
+import express from "express";
+
+// Colocar todas as funções do express na variável app
+const app = express();
+
+// Criando requisição get = endpoint com barra
+app.get("/", (req, res) => {
+  res.send("Olá, mundo!");
+});
+
+// Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen(3000, () =>
+  console.log("Meu servidor está rodando na porta http://localhost:3000")
+);
+
+Toda vez que mudar o arquivo, para não ter que matar o back-end e atualizar, passar a instrução node --watch ./index.js
+
+
+-----------------------------------------------------------------------------------------
+8. CRIANDO REQUISIÇÃO POST =  ENDPOINT "/"
+
+Toda requisição na web, é do tipo get, para testar a api com outras requisições, ex:
+app.post("/", (req, res) => {
+  res.send("Informação nova criada com sucesso!");
+});
+
+Utilizar o aplicativo reqbin
+Digitar no google:
+reqbin
+Escrecer o caminho http://localhost:3000 e escolher a requisição
+
+// Utilizar o Middleware abaixo antes dos endponits. Toda requisição com res.json, transforma e json, ou seja, para todo body que chegar tranforma em json
+app.use(express.json());
+
+Minha estrutura está assim, estou usando reqbin
+import express from "express";
+
+// Colocar todas as funções do express na variável app
+const app = express();
+
+// Middleware: Middleware: toda requisição com res.json, transforma e json, ou seja,todo body que chegar transforma em json
+app.use(express.json());
+
+// Criando requisição get = endpoint com barra, só tem resposta
+app.get("/", (req, res) => {
+  res.send("Olá, Galo!");
+});
+
+// Criando requisição get = endpoint com barra, tem requisição (body) e resposta (params)
+app.post("/", (req, res) => {
+  const body = req.body;
+  console.log(body.nome);
+  // res.send("Informação nova criada com sucesso!" );
+  res.json({ nome: body.nome });
+});
+
+// Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen(3000, () =>
+  console.log("Meu servidor está rodando na porta http://localhost:3000")
+);
+
+No terminal vai aparecer o nome devido o console.log e no reqbin vai aparecer o nome devido o res.json, lembandro que eu tenho um objeto no reqbin, só pode usar um res
+{"nome":"Daniel",
+ "imersao": "javascript"}
+
+
+-----------------------------------------------------------------------------------------
+9. DESESTRUTURAÇÃO
+// Desestruturação, pega chave dentro do objeto
+// objeto = req
+// chave = body
+  // const body = req.body;
+  const { body } = req;
+
+  // objeto = body
+  // chave = nome e imersao
+  const { nome, imersao } = body;
+
+  // console.log(body.nome);
+  // res.send("Informação nova criada com sucesso!");
+  res.json({ nome, imersao });
+
+Minha estrutura está assim
+import express from "express";
+
+// Colocar todas as funções do express na variável app
+const app = express();
+
+// Middleware: toda requisição com res.json, transforma e json, ou seja,todo body que chegar transforma em json
+app.use(express.json());
+
+// Criando requisição get = endpoint com barra, só tem resposta
+app.get("/", (req, res) => {
+  res.send("Olá, Galo!");
+});
+
+// Criando requisição get = endpoint com barra, tem requisição (body) e resposta (params)
+app.post("/", (req, res) => {
+  // Desestruturação, pega chave dentro do objeto
+  // objeto = req
+  // chave = body
+  // const body = req.body;
+  const { body } = req;
+
+  // objeto = body
+  // chave = nome e imersao
+  const { nome, imersao } = body;
+
+  // console.log(body.nome);
+  // res.send("Informação nova criada com sucesso!");
+  res.json({ nome, imersao });
+});
+
+// Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen(3000, () =>
+  console.log("Meu servidor está rodando na porta http://localhost:3000")
+);
+
+
+-----------------------------------------------------------------------------------------
+10. CRIANDO REQUISIÇÃO POST com ID =  ENDPOINT "/produto/:id"
+//req.params
+
+// Parâmetros da requisição
+app.post("/produto/:id", (req, res) => {
+  const { body } = req;
+  const { nome, imersao } = body;
+
+  // const id = req.params.id;
+  const { id } = req.params;
+  console.log(id);
+
+  res.json({ nome, imersao });
+});
+
+
+-----------------------------------------------------------------------------------------
+11. CONFIGURANDO O PRISMA E O SQLite
+O SQLite é um banco de dados local e para projetos pequenos
+Para banco de dados na nuvem e projetos maiores, usar o POSTGRES
+
+Isntalar o PRISMA, vai fazer o meio de campo entre a API e o do banco de dados. Isso é para não precisar de ficar usando a linguagem SQL pode usar só javascript
+Digite no terminal do back-end:
+npm i prisma @prisma/client
+
+vai colocar no package.json do back-end
+"dependencies": {
+    "@prisma/client": "^6.14.0",
+    "express": "^5.1.0",
+    "prisma": "^6.14.0"
+  }
+
+Para configurar o prisma para trabalhar com SQLite
+Digite no terminal do back-end
+npx prisma init --datasource-provider sqlite
+
+Pode usar a pasta .env criada pelo prisma para acessar a URL, mas o professor preferiu deletar e seguir outro caminho
+Deletar a pasta .env
+Em schema.prisma, alterar o código
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.sqlite"
+}
+
+
+-----------------------------------------------------------------------------------------
+12. MODELANDO O BANCO DE DADOS 
+Em schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.sqlite"
+}
+
+// Modelando o Banco de Dados
+model Produto{
+      id Int @id @default(autoincrement())
+      titulo String
+      preco Float
+      precoDesconto Float
+      precoParcelado Float
+      caracteristicas String
+      imagens String
+      estoque Int
+      freteGratis Boolean
+      full Boolean
+}
+
+
+-----------------------------------------------------------------------------------------
+13. CONFIRGURAR A MIGRAÇÃO DO BANCO DE DADOS 
+Digite no termainal do back-end
+npx prisma migrate dev
+
+Clicar em Enter
+
+Digite no termainal do back-end
+npx prisma generate
+
+
+-----------------------------------------------------------------------------------------
+14. BUSCANDO OS PRODUTOS NO BANCO DE DADOS - GET
+Levar o banco de dados para o index.js
+
+import { PrismaClient } from "@prisma/client";
+import express from "express";
+
+const app = express();
+const prisma = new PrismaClient();
+
+app.use(express.json());
+
+// Bucando os produtos
+app.get("/", async (req, res) => {
+  const produtos = await prisma.produto.findMany();
+  res.json(produtos);
+});
+
+
+-----------------------------------------------------------------------------------------
+15. CRIANDO OS PRODUTOS NO BANCO DE DADOS - POST
+Em características vai dá problema, porque está declarado como String e é uma lista
+Por isso vai precisar do JSON.stringify(caracteristicas) para transformar a lista em uma String
+Para voltar a ser uma lista, usar o Parse 
+Clique em F12 aqui http://localhost:3000/
+
+const caracteristicas = [
+    "Material da jarra: Acrílico",
+    "Capacidade de 2.6 L.",
+    "A sua potência é de 900 W.",
+    "Possui base antiderrapante.",
+    "Lâmina resistente de aço inoxidável.",
+    "Tampa dosadora incorporada.",
+    "Funciona com 4 velocidades.",
+    "Livre de BPA.",
+    "Inclui filtro.",
+    "Picador de gelo.",
+    "Quantidade de lâminas: 4."
+  ]
+
+caracteristicas
+(11) ['Material da jarra: Acrílico', 'Capacidade de 2.6 L.', 'A sua potência é de 900 W.', 'Possui base antiderrapante.', 'Lâmina resistente de aço inoxidável.', 'Tampa dosadora incorporada.', 'Funciona com 4 velocidades.', 'Livre de BPA.', 'Inclui filtro.', 'Picador de gelo.', 'Quantidade de lâminas: 4.']
+
+Transformar a lista em String
+const textoLista = JSON.stringify(caracteristicas)
+textoLista
+'["Material da jarra: Acrílico","Capacidade de 2.6 L.","A sua potência é de 900 W.","Possui base antiderrapante.","Lâmina resistente de aço inoxidável.","Tampa dosadora incorporada.","Funciona com 4 velocidades.","Livre de BPA.","Inclui filtro.","Picador de gelo.","Quantidade de lâminas: 4."]'
+
+Transformar a String em lista
+JSON.parse(textoLista)
+(11) ['Material da jarra: Acrílico', 'Capacidade de 2.6 L.', 'A sua potência é de 900 W.', 'Possui base antiderrapante.', 'Lâmina resistente de aço inoxidável.', 'Tampa dosadora incorporada.', 'Funciona com 4 velocidades.', 'Livre de BPA.', 'Inclui filtro.', 'Picador de gelo.', 'Quantidade de lâminas: 4.']
+
+
+-----------------------------------------------------------------------------------------
+16. REQUISIÇÃO PELO FRONT-END COM AXIOS e Middleware CORS
+Instalar o axios 
+Digite no terminal do front-end:
+npm i axios
+
+Importar o axios em Home.jsx
+import axios from "axios"
+
+Instalar o CORS para comunicar front-end com back-end
+Digite no terminal do back-end:
+npm i axios
+
+Colocar em index.js
+import { PrismaClient } from "@prisma/client";
+import express from "express";
+import cors from "cors";
+
+const app = express();
+const prisma = new PrismaClient();
+
+app.use(express.json());
+app.use(cors());
+
+Em Home.jsx antes do return deixar assim
+import axios from "axios";
+import Produto from "../components/Produto";
+
+export const Home = () => {
+  const requisicaoAxios = async () => {
+    // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
+    // console.log(respostaRequisicao.data);
+    const { data } = await axios.get("http://localhost:3000/produto");
+    console.log(data);
+  };
+  requisicaoAxios();
+  return (
+    <section className="secao-produto">
+      <div className="container">
+        <h1>Todos os produtos</h1>
+
+        <div className="produtos">
+          <Produto />
+          <Produto />
+          <Produto />
+          <Produto />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+-----------------------------------------------------------------------------------------
+17. HOOK
+Atualiza a renderização da variável alterada
+
+export const Home = () => {
+  // Variável normal
+  let variavel = "teste";
+  useEffect(() => {
+    const requisicaoAxios = async () => {
+      // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
+      // console.log(respostaRequisicao.data);
+      const { data } = await axios.get("http://localhost:3000/produto");
+      console.log(data);
+      variavel = "teste2";
+    };
+    requisicaoAxios();
+  }, []);
+
+  return (
+    <section className="secao-produto">
+      <div className="container">
+        <h1>Todos os produtos {variavel}</h1>
+
+        <div className="produtos">
+          <Produto />
+          <Produto />
+          <Produto />
+          <Produto />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+Variável normal não altera a renderização quando está dentro de uma função, quando ela é alterada, somente variável de estado altera a renderização
+
+Forma correta
+export const Home = () => {
+  // Variável de estado
+  const [variavelEstado, setVariavelEstado] = useState("teste");
+
+  useEffect(() => {
+    const requisicaoAxios = async () => {
+      // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
+      // console.log(respostaRequisicao.data);
+      const { data } = await axios.get("http://localhost:3000/produto");
+      console.log(data);
+      setVariavelEstado("teste2");
+    };
+    requisicaoAxios();
+  }, []);
+
+  return (
+    <section className="secao-produto">
+      <div className="container">
+        <h1>Todos os produtos {variavelEstado}</h1>
+
+        <div className="produtos">
+          <Produto />
+          <Produto />
+          <Produto />
+          <Produto />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
+-----------------------------------------------------------------------------------------
+18. CRIANDO REQUISIÇÃO DELETE com ID =  ENDPOINT "/produto/:id"
+// Deletando produto
+app.delete("/produto/:id", async (req, res) => {
+  const { id } = req.params;
+  const produtoDeletar = await prisma.produto.delete({
+    where: { id: Number(id) },
+  });
+  res.json(produtoDeletar);
+});
+
+
+-----------------------------------------------------------------------------------------
+19. CRIANDO REQUISIÇÃO GET com ID =  ENDPOINT "/produto/:id"
+// Buscando 1 produto
+app.get("/produto/:id", async (req, res) => {
+  const { id } = req.params;
+  const produto = await prisma.produto.findUnique({
+    where: { id: Number(id) },
+  });
+  res.json(produto);
+});
