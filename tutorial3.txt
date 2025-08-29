@@ -308,6 +308,8 @@ Utilizar o aplicativo reqbin para requisição e resposta
 Digitar no google:
 reqbin
 Escrecer o caminho http://localhost:3000 e escolher a requisição
+reqbin não aceita https só http
+reqbin vai fazer o papel do front-end
 
 para receber um json no reqbin colocar em body
 {"key": "value"}
@@ -371,12 +373,171 @@ app.post("/produto/:id", (req, res) => {
 });
 
 -----------------------------------------------------------------------------------------
-12. CRI
+12. CRIAR O BANCO DE DADOS NO pgadmin
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- CRIAÇÃO DA TABELA LOGIN
+CREATE TABLE IF NOT EXISTS public.login (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  senha TEXT NOT NULL UNIQUE,
+  email TEXT NOT NULL UNIQUE,
+  nome TEXT NOT NULL UNIQUE
+);
+
+
+-- CRIAÇÃO DA TABELA TAREFAS
+CREATE TABLE IF NOT EXISTS public.tarefas (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  usuario_id UUID NOT NULL,
+  nome TEXT NOT NULL,
+  tarefa TEXT NOT NULL,
+  CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES public.login(id) ON DELETE CASCADE
+);
+
+SELECT * FROM login
+SELECT * FROM tarefas
+
+INSERT INTO login (senha, nome, email)
+VALUES
+  ('0000', 'Daniel', 'dvs.veiga78@gmail.com'),
+  ('0001', 'Tais', 'tr.abreuveiga@gmail.com');
+
+
+--------------------------------------------------------------------------------------------
+13 PASSO - CRIAR O ARQUIVO .env PARA DEIXAR OS DADOS DE CONEXÃO SEGUROS
+São as variáveis que não serão compartilhadas com terceiros
+Criar arquivo .env no back-end
+
+Colocar no arquivo .env:
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=Limao_10
+DB_DATABASE=TaskList
+
+Digitar no terminal, na pasta back-end:
+npm install dotenv
+npm install dotenv = serve para ter acesso as variáveis de ambiente
+
+--------------------------------------------------------------------------------------------
+14 INSTALAR O PG ADMIN
+Digitar no terminal, na pasta back-end:
+npm i pg
+
+Criar o arquivo connect.js na pasta back-end
+Colocar em connect.js
+
+import pg from "pg";
+import "dotenv/config";
+
+// Acessar o BANCO DADOS
+const pool = new pg.Pool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
+
+// console.log((await pool.query("SELECT * FROM login")).rows);
+
+export default pool;
+
+Rodar o node --watch .\index.js e conferir se deu certo
+
+parei aqui
+-----------------------------------------------------------------------------------------
+15 CRIAR AS ESTRUTURAS DO CRUD
+
+
+Criar o arquivo de acesso ao banco de dados
+Criar o arquivo db.js na pasta dbOnLine
+
+Recortar do index.js e colar no db.js
+
+import pg from "pg";
+
+// Acessar o BANCO DADOS
+const pool = new pg.Pool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
+
+console.log((await pool.query("SELECT * FROM login")).rows);
+
+export default pool
+
 
 -----------------------------------------------------------------------------------------
-7. CRI
+16 CRIAR A CLASSE GERAL DAS ROTAS
+Criar a pasta crud em back-end
+POST, GET, PUT, DELETE
+CRUD - CREATE, READ, UPDATE e DELETE
+Dentro da pasta crud, criar a pasta dbOnLine, colocar as estruturas de acesso ao banco de dados
+Essa pasta vai guardar os códigos que fazem comunicação com banco de dados e terá tudo que for comunicação com banco de dados
+Dentro da pasta dbOnLine, criar um arquivo DbClass.js
+As iniciais em maiúsculo, porque iremos criar uma classe nesse arquivo
+Esse arquivo terá as ações comuns para o banco de dados
+
+Copiar o modelo de outros projetos
+
 
 -----------------------------------------------------------------------------------------
-7. CRI
+17. REQUISIÇÃO PELO FRONT-END COM AXIOS e Middleware CORS
+Instalar o axios 
+Digite no terminal do front-end:
+npm i axios
 
+Importar o axios em Home.jsx
+import axios from "axios"
+
+Instalar o CORS para comunicar front-end com back-end
+Digite no terminal do back-end:
+npm i axios
+
+Colocar em index.js
+import { PrismaClient } from "@prisma/client";
+import express from "express";
+import cors from "cors";
+
+const app = express();
+const prisma = new PrismaClient();
+
+app.use(express.json());
+app.use(cors());
+
+Em Home.jsx antes do return deixar assim
+import axios from "axios";
+import Produto from "../components/Produto";
+
+export const Home = () => {
+  const requisicaoAxios = async () => {
+    // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
+    // console.log(respostaRequisicao.data);
+    const { data } = await axios.get("http://localhost:3000/produto");
+    console.log(data);
+  };
+  requisicaoAxios();
+  return (
+    <section className="secao-produto">
+      <div className="container">
+        <h1>Todos os produtos</h1>
+
+        <div className="produtos">
+          <Produto />
+          <Produto />
+          <Produto />
+          <Produto />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+-----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------

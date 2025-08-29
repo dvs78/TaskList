@@ -1,20 +1,17 @@
 import express from "express";
 
+import rotaLogin from "./crud/rotas/rotaLogin.js";
+import rotaTask from "./crud/rotas/rotaTask.js";
+
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Olá, mundo, estou aqui agora!");
-});
+// REQUISIÇÕES
+app.use("/api/login", rotaLogin);
+app.use("/api/task", rotaTask);
 
-app.post("/", (req, res) => {
-  const { body } = req; // o body é uma chave do objeto req
-  const { nome, idade } = body;
-  console.log(body); // vai aparecer no terminal
-  console.log(nome, idade); // vai aparecer no terminal
-  res.json({ nome, idade }); // vai aparecer no reqbin
-});
-
-app.listen(3000, () => {
-  console.log("Meu servidor está rodando na porta https://localhost:3000");
+// SERVIDOR ESCUTAR
+const PORTA = 3000;
+app.listen(PORTA, () => {
+  console.log(`Meu servidor está rodando na porta ${PORTA}`);
 });
