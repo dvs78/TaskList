@@ -1,11 +1,25 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const TaskList = () => {
+  // Variável de estado
+  const [tarefas, setTarefas] = useState([]);
+
+  // Hook
+  useEffect(() => {
+    const requisicaoAxios = async () => {
+      const { data } = await axios.get("http://localhost:3000/api/task");
+      console.log(data);
+
+      setTarefas(data);
+    };
+    requisicaoAxios();
+  }, []);
   return (
     <div className="task__list">
-      <p>tarefa</p>
+      <p>{tarefas[0].tarefa}</p>
       <div className="btn__task">
         <button className="btn__edit">
           <FontAwesomeIcon icon={faPencil} />

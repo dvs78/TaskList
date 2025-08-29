@@ -1,9 +1,11 @@
 import express from "express";
+import cors from "cors";
 
 import rotaLogin from "./crud/rotas/rotaLogin.js";
 import rotaTask from "./crud/rotas/rotaTask.js";
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 // REQUISIÇÕES

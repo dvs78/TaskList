@@ -492,51 +492,125 @@ Instalar o axios
 Digite no terminal do front-end:
 npm i axios
 
-Importar o axios em Home.jsx
+Importar o axios em TaskList.jsx
 import axios from "axios"
 
 Instalar o CORS para comunicar front-end com back-end
 Digite no terminal do back-end:
-npm i axios
+npm i cors
 
-Colocar em index.js
-import { PrismaClient } from "@prisma/client";
-import express from "express";
-import cors from "cors";
-
-const app = express();
-const prisma = new PrismaClient();
-
-app.use(express.json());
-app.use(cors());
-
-Em Home.jsx antes do return deixar assim
+Em TaskList.jsx deixar assim
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import Produto from "../components/Produto";
 
-export const Home = () => {
+const TaskList = () => {
   const requisicaoAxios = async () => {
-    // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
+    // const respostaRequisicao = await axios.get(
+    //   "http://localhost:3000/api/task"
+    // );
     // console.log(respostaRequisicao.data);
-    const { data } = await axios.get("http://localhost:3000/produto");
+    const { data } = await axios.get("http://localhost:3000/api/task");
     console.log(data);
   };
   requisicaoAxios();
   return (
-    <section className="secao-produto">
-      <div className="container">
-        <h1>Todos os produtos</h1>
-
-        <div className="produtos">
-          <Produto />
-          <Produto />
-          <Produto />
-          <Produto />
-        </div>
+    <div className="task__list">
+      <p>tarefa</p>
+      <div className="btn__task">
+        <button className="btn__edit">
+          <FontAwesomeIcon icon={faPencil} />
+        </button>
+        <button className="btn__remove">
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
       </div>
-    </section>
+    </div>
   );
 };
+
+export default TaskList;
+
+
+-----------------------------------------------------------------------------------------
+18. HOOK
+Colocar as funções dentro do Hook
+Atualiza a renderização da variável alterada
+useEffect(() => {  }, []);
+Executa a função para montar o componente e toda vez que a variável mudar
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { useEffect } from "react";
+
+const TaskList = () => {
+  // Hook
+  useEffect(() => {
+    const requisicaoAxios = async () => {
+      const { data } = await axios.get("http://localhost:3000/api/task");
+      console.log(data);
+    };
+    requisicaoAxios();
+  }, []);
+  return (
+    <div className="task__list">
+      <p>tarefa</p>
+      <div className="btn__task">
+        <button className="btn__edit">
+          <FontAwesomeIcon icon={faPencil} />
+        </button>
+        <button className="btn__remove">
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default TaskList;
+
+Variável normal não altera a renderização quando está dentro de uma função, quando ela é alterada, somente variável de estado altera a renderização
+
+Forma correta
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+const TaskList = () => {
+  // Variável normal
+  // let variavelNormal = "teste";
+
+  // Variável de estado
+  const [variavelEstado, setVariavelEstado] = useState("teste1");
+
+  // Hook
+  useEffect(() => {
+    const requisicaoAxios = async () => {
+      const { data } = await axios.get("http://localhost:3000/api/task");
+      console.log(data);
+      // variavelNormal = "teste2"
+      setVariavelEstado("teste3");
+    };
+    requisicaoAxios();
+  }, []);
+  return (
+    <div className="task__list">
+      <p>tarefa{variavelEstado}</p>
+      <div className="btn__task">
+        <button className="btn__edit">
+          <FontAwesomeIcon icon={faPencil} />
+        </button>
+        <button className="btn__remove">
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default TaskList;
 
 
 -----------------------------------------------------------------------------------------
