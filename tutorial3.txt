@@ -268,10 +268,10 @@ O front-end chama rota, https://localhost:5173
 
 Por enquanto o endpoint https://localhost:3000 vai aparecer Cannot GET /
 
-GET - Pegar informações
-PUT/PATCH - Editar informações
-DELETE - Deletar informações
-POST - Criar informações
+GET - Pegar informações, não aceita requisição (body), só aceita resposta
+PUT/PATCH - Editar informações, aceita requisição (body), aceita resposta
+DELETE - Deletar informações, aceita requisição (body), aceita resposta
+POST - Criar informações, aceita requisição (body), aceita resposta
 
 Vamos passar as intruções antes de escutar (app.listen)
 
@@ -304,57 +304,74 @@ app.post("/", (req, res) => {
   res.send("Informação nova criada com sucesso!");
 });
 
-Utilizar o aplicativo reqbin
+Utilizar o aplicativo reqbin para requisição e resposta
 Digitar no google:
 reqbin
 Escrecer o caminho http://localhost:3000 e escolher a requisição
 
+para receber um json no reqbin colocar em body
+{"key": "value"}
+ex: {"nome": "Daniel", "idade": 47}
 
-Parei aqui!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Middleware (express.json()): toda requisição com res.json, transforma em json, ou seja,todo body que chegar transforma em json
 
-
-// Utilizar o Middleware abaixo antes dos endponits. Toda requisição com res.json, transforma e json, ou seja, para todo body que chegar tranforma em json
+Alterar a rquisição post
 app.use(express.json());
 
-Minha estrutura está assim, estou usando reqbin
-import express from "express";
-
-// Colocar todas as funções do express na variável app
-const app = express();
-
-// Middleware: Middleware: toda requisição com res.json, transforma e json, ou seja,todo body que chegar transforma em json
-app.use(express.json());
-
-// Criando requisição get = endpoint com barra, só tem resposta
-app.get("/", (req, res) => {
-  res.send("Olá, Galo!");
-});
-
-// Criando requisição get = endpoint com barra, tem requisição (body) e resposta (params)
 app.post("/", (req, res) => {
   const body = req.body;
-  console.log(body.nome);
-  // res.send("Informação nova criada com sucesso!" );
-  res.json({ nome: body.nome });
+  console.log(body.nome); // vai aparecer no terminal
+  res.json({ nome: body.nome }); // vai aparecer no reqbin
 });
 
-// Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
-app.listen(3000, () =>
-  console.log("Meu servidor está rodando na porta http://localhost:3000")
-);
+Deixar a requisição post mais adequada
+DESESTRUTURAÇÃO, pega chave dentro do objeto
 
-No terminal vai aparecer o nome devido o console.log e no reqbin vai aparecer o nome devido o res.json, lembandro que eu tenho um objeto no reqbin, só pode usar um res
-{"nome":"Daniel",
- "imersao": "javascript"}
+app.post("/", (req, res) => {
+  const { body } = req; // o body é uma chave do objeto req, seria assim req = { body: {"nome": "Daniel", "idade": 47} }
+  console.log(body.nome); // vai aparecer no terminal
+  res.json({ nome: body.nome }); // vai aparecer no reqbin
+});
 
+continuar a DESESTRUTURAÇÃO
+app.post("/", (req, res) => {
+  const { body } = req; // o body é uma chave do objeto req
+  const { nome, idade } = body;
+  console.log(body); // vai aparecer no terminal
+  console.log(nome, idade); // vai aparecer no terminal
+  res.json({ nome: nome, idade: idade }); // vai aparecer no reqbin
+});
+
+No json quando a chave e a variácvel tem o mesmo nome, é só deixar a chave que retorna a variável que tem o mesmo nome da chave
+app.post("/", (req, res) => {
+  const { body } = req; // o body é uma chave do objeto req
+  const { nome, idade } = body;
+  console.log(body); // vai aparecer no terminal
+  console.log(nome, idade); // vai aparecer no terminal
+  res.json({ nome, idade }); // vai aparecer no reqbin
+});
 
 Toda vez que mudar o arquivo, para não ter que matar o back-end e atualizar, passar a instrução node --watch ./index.js
 
 -----------------------------------------------------------------------------------------
-7. CRI
+11. CRIANDO REQUISIÇÃO POST com ID =  ENDPOINT "/produto/:id"
+PAREI AQUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//req.params
+
+// Parâmetros da requisição
+app.post("/produto/:id", (req, res) => {
+  const { body } = req;
+  const { nome, imersao } = body;
+
+  // const id = req.params.id;
+  const { id } = req.params;
+  console.log(id);
+
+  res.json({ nome, imersao });
+});
 
 -----------------------------------------------------------------------------------------
-7. CRI
+12. CRI
 
 -----------------------------------------------------------------------------------------
 7. CRI
