@@ -1,15 +1,29 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // import para navegação
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Welcome from "../../components/Welcome"; // ajuste o caminho
 
 const Login = () => {
-  const [senha, setSenha] = useState("");
-  const navigate = useNavigate(); // hook do react-router
+  const [senhaDigitada, setSenhaDigitada] = useState("");
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuarioValido, setUsuarioValido] = useState(null); // guarda o usuário logado
+  const [mostrarBV, setMostrarBV] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const requisicaoGet = async () => {
+      const { data } = await axios.get("http://localhost:3000/api/login");
+      setUsuarios(data);
+    };
+    requisicaoGet();
+  }, []);
 
   const handleLogin = () => {
-    // Aqui você pode validar a senha
-    if (senha === "1234") {
-      // Se a senha estiver certa, vai para Home
-      navigate("/home");
+    const usuario = usuarios.find((u) => u.senha === senhaDigitada);
+    if (usuario) {
+      setUsuarioValido(usuario);
+      setMostrarBV(true); // abre modal
+      // navega depois do modal fechar (onClose do Welcome)
     } else {
       alert("Senha incorreta!");
     }
@@ -25,14 +39,24 @@ const Login = () => {
         type="password"
         name="input__login"
         placeholder="senha"
-        value={senha}
-        onChange={(e) => {
-          setSenha(e.target.value);
-        }}
+        value={senhaDigitada}
+        onChange={(e) => setSenhaDigitada(e.target.value)}
       />
       <button className="btn__enter" onClick={handleLogin}>
         <h3>Entrar</h3>
       </button>
+
+      {/* Modal de Boas-Vindas */}
+      {mostrarBV && (
+        <Welcome
+          nome={usuarioValido?.nome}
+          duration={2600} // 2.6s na tela
+          onClose={() => {
+            setMostrarBV(false);
+            navigate("/home", { state: { usuario: usuarioValido.nome } }); // só navega quando fechar
+          }}
+        />
+      )}
     </div>
   );
 };

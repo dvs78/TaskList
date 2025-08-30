@@ -13,6 +13,7 @@
   --btn-hover: #50fa7b;
   --task-concluida: #6272a4;
   --task-remove: #ff5555;
+  --task-remove-escuro: #f81616;
 }
 
 /* GERAL //////////////////////////// */
@@ -97,6 +98,69 @@ button {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Welcome, backdrop com blur */
+.bv__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 13, 23, 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+
+/* Cartão */
+.bv__card {
+  background: linear-gradient(180deg, #111528, #0c1022);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 28px 32px;
+  color: #edf0f7;
+  text-align: center;
+  width: min(420px, 92vw);
+}
+
+.bv__icon {
+  font-size: 34px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.bv__title {
+  margin: 0 0 6px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.bv__text {
+  margin: 0;
+  opacity: 0.92;
+  font-size: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #0d0f23;
+  color: #fff;
+}
+
+.header__icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header svg {
+  font-size: 20px;
+}
+
 /* HEADER //////////////////////////// */
 .header {
   width: 100%;
@@ -137,15 +201,32 @@ button {
 
 /* TASKLIST //////////////////////////// */
 .task__list {
-  /* flex: 1; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex: 1;
   overflow-y: auto;
-  width: 60%;
+  width: 100%;
   border-radius: 5px;
   background-color: var(--texto);
   padding: 10px;
+}
+
+.task__list-item {
+  font-family: system-ui, sans-serif;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--fundo-principal);
+  color: var(--texto);
+  margin: 5px;
+  border-radius: 8px;
+}
+
+.task__list-item:hover {
+  /* background-color: var(--texto); */
+  /* color: var(--fundo-principal); */
+  /* font-weight: bold; */
+  background-color: var(--task-concluida);
 }
 
 .btn__task {
@@ -161,19 +242,19 @@ button {
 }
 
 .btn__remove:hover {
-  color: var(--texto);
-  background-color: var(--task-remove);
+  color: var(--task-remove-escuro);
 }
 
 .btn__edit {
   border-radius: 100%;
   margin: 5px;
   padding: 5px 8px;
-  color: var(--task-concluida);
+
   transition: border-color 0.25s;
 }
 
 .btn__edit:hover {
   color: var(--fundo-principal);
-  background-color: var(--texto);
 }
+
+/* TASKLIST //////////////////////////// */

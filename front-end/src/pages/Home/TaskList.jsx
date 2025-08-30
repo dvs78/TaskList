@@ -19,15 +19,19 @@ const TaskList = () => {
   }, []);
   return (
     <div className="task__list">
-      <p>{tarefas[0].tarefa}</p>
-      <div className="btn__task">
-        <button className="btn__edit">
-          <FontAwesomeIcon icon={faPencil} />
-        </button>
-        <button className="btn__remove">
-          <FontAwesomeIcon icon={faTrash} />
-        </button>
-      </div>
+      {tarefas.map((t, i) => (
+        <div className="task__list-item" key={`task-${i}`}>
+          <p>{t.tarefa}</p>
+          <div className="btn__task">
+            <button className="btn__edit">
+              <FontAwesomeIcon icon={faPencil} />
+            </button>
+            <button className="btn__remove">
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
