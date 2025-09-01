@@ -3,7 +3,7 @@ import DbClassTask from "../dbOnline/DbClassTask.js";
 
 const rotas = Router();
 
-// GET
+// Get
 rotas.get("/", async (req, res) => {
   try {
     const result = await new DbClassTask().getAll();
@@ -14,7 +14,17 @@ rotas.get("/", async (req, res) => {
   }
 });
 
-// POST
+// Delete
+rotas.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  await new DbClassTask().deleteById(id);
+  res
+    .status(200)
+    .send({ message: "Produção de mudas excluída com sucesso!!!" });
+});
+
+// Post
 rotas.post("/", async (req, res) => {
   const { usuario_id, tarefa } = req.body;
 
@@ -33,6 +43,29 @@ rotas.post("/", async (req, res) => {
   } catch (error) {
     console.error("Erro na rota POST /:", error.message);
     res.status(500).json({ erro: "Erro ao inserir tarefa" });
+  }
+});
+
+// Put
+rotas.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
+
+    const db = new DbClassTask();
+    const updated = await db.updateById(id, body); // já passa o objeto inteiro
+
+    if (!updated) {
+      return res.status(404).send({ message: "Tarefa não encontrada!" });
+    }
+
+    res.status(200).send({
+      message: "Tarefa atualizada com sucesso!!!",
+      tarefa: updated,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Erro ao atualizar tarefa." });
   }
 });
 

@@ -10,6 +10,15 @@ class DbClassTask extends DbClass {
     }
   }
 
+  // Deletar tarefa po id
+  async deleteById(id) {
+    try {
+      await super.deleteById("tarefas", id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   // Inserir tarefa
   async insert(dados) {
     try {
@@ -22,6 +31,15 @@ class DbClassTask extends DbClass {
       return newtask;
     } catch (error) {
       console.error("Erro ao inserir tarefa no banco:", error.message);
+      throw error;
+    }
+  }
+
+  // Editar tarefa
+  async updateById(id, data) {
+    try {
+      return await super.updateById("tarefas", id, data);
+    } catch (error) {
       throw error;
     }
   }

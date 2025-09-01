@@ -14,6 +14,16 @@ class DbClass {
     }
   }
 
+  // Deletar por ID
+  async deleteById(tabela, id) {
+    try {
+      const queryText = `DELETE FROM ${tabela} WHERE id = $1`;
+      await pool.query(queryText, [id]);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   // Inserir
   async insert(tabela, dados) {
     try {
@@ -31,6 +41,25 @@ class DbClass {
       console.error("Erro ao inserir tarefa:", error.message);
       throw error;
     }
+  }
+
+  // Editar
+  async updateById(tabela, id, data) {
+    const colunas = Object.keys(data);
+    const valores = Object.values(data);
+
+    if (colunas.length === 0) throw new Error("Nenhum campo para atualizar");
+
+    const setClause = colunas
+      .map((col, i) => `"${col}" = $${i + 1}`)
+      .join(", ");
+
+    const query = `UPDATE "${tabela}" SET ${setClause} WHERE id = $${
+      colunas.length + 1
+    } RETURNING *`;
+
+    const { rows } = await pool.query(query, [...valores, id]);
+    return rows[0];
   }
 }
 

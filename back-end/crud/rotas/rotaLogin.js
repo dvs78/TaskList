@@ -3,7 +3,7 @@ import DbClassLogin from "../dbOnline/DbClassLogin.js";
 
 const rotas = Router();
 
-// GET
+// Get
 rotas.get("/", async (req, res) => {
   try {
     const result = await new DbClassLogin().getAll();
