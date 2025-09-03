@@ -11,6 +11,6 @@ const pool = new pg.Pool({
 });
 
 // console.log((await pool.query("SELECT * FROM login")).rows);
-console.log((await pool.query("SELECT * FROM tarefas")).rows);
+// console.log((await pool.query("SELECT * FROM tarefas")).rows);
 
 export default pool;

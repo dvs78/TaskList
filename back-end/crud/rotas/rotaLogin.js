@@ -7,6 +7,7 @@ const rotas = Router();
 rotas.get("/", async (req, res) => {
   try {
     const result = await new DbClassLogin().getAll();
+    // console.log(result);
     res.status(200).send(result);
   } catch (erro) {
     console.error("Erro na rota GET /login:", erro.message);

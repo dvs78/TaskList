@@ -14,7 +14,7 @@ const AddTask = () => {
           placeholder="Digite a nova tarefa"
         />
         <button className="btn__add">
-          <FontAwesomeIcon icon={faPlus} />
+          <FontAwesomeIcon icon={faPlus} className="btn__add--Aumentar" />
         </button>
       </div>
     </>

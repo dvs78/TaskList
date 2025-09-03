@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ nomeUsuario }) => {
+const Header = ({ userName }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     navigate("/"); // volta para tela de login
@@ -14,7 +14,7 @@ const Header = ({ nomeUsuario }) => {
 
   return (
     <header className="header">
-      <h1>{nomeUsuario}</h1>
+      <h1>{userName}</h1>
 
       <div className="header__icons">
         <FontAwesomeIcon

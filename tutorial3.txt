@@ -621,4 +621,20 @@ npm i framer-motion
 -----------------------------------------------------------------------------------------
 
 
+19. VITE CONFIG 
+Em vite config deixar assim:
+
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: { "/api": "http://localhost:3000" },
+  },
+});
+
+e quando puxar a rota, deixar assim:
+await axios.get("/api/login")
+
 -----------------------------------------------------------------------------------------

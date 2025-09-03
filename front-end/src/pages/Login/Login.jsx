@@ -12,8 +12,13 @@ const Login = () => {
 
   useEffect(() => {
     const requisicaoGet = async () => {
-      const { data } = await axios.get("http://localhost:3000/api/login");
-      setUsuarios(data);
+      try {
+        const { data } = await axios.get("/api/login");
+        setUsuarios(data);
+      } catch (error) {
+        console.error("Falha ao buscar /api/login:", err.message);
+        alert("Não foi possível conectar ao servidor. Verifique o back-end.");
+      }
     };
     requisicaoGet();
   }, []);
@@ -27,6 +32,8 @@ const Login = () => {
     } else {
       alert("Senha incorreta!");
     }
+    // 🔑 sempre limpa o input depois da tentativa
+    setSenhaDigitada("");
   };
 
   return (
@@ -35,13 +42,17 @@ const Login = () => {
       <label className="label__login" htmlFor="input__login">
         Digite sua senha:
       </label>
+
       <input
+        className="input__login"
         type="password"
         name="input__login"
         placeholder="senha"
+        autoComplete="new-password"
         value={senhaDigitada}
         onChange={(e) => setSenhaDigitada(e.target.value)}
       />
+
       <button className="btn__enter" onClick={handleLogin}>
         <h3>Entrar</h3>
       </button>
@@ -53,7 +64,7 @@ const Login = () => {
           duration={2600} // 2.6s na tela
           onClose={() => {
             setMostrarBV(false);
-            navigate("/home", { state: { usuario: usuarioValido.nome } }); // só navega quando fechar
+            navigate("/home", { state: { usuario: usuarioValido } }); // só navega quando fechar
           }}
         />
       )}

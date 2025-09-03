@@ -17,7 +17,7 @@ class DbClass {
   // Deletar por ID
   async deleteById(tabela, id) {
     try {
-      const queryText = `DELETE FROM ${tabela} WHERE id = $1`;
+      const queryText = `DELETE FROM "${tabela}" WHERE id = $1`;
       await pool.query(queryText, [id]);
     } catch (error) {
       throw error;

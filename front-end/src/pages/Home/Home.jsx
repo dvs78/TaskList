@@ -5,12 +5,14 @@ import TaskList from "./TaskList";
 
 const Home = () => {
   const location = useLocation();
-  const usuario = location.state?.usuario || "Usuário"; // se não vier nada, mostra "Usuário"
+  const usuario = location.state?.usuario || null;
+  const usuarioFinal = usuario || usuarioPersistido;
+
   return (
     <div className="main">
-      <Header nomeUsuario={usuario} />
-      <AddTask />
-      <TaskList />
+      <Header userName={usuarioFinal?.nome ?? "Usuário"} />
+      <AddTask usuario={usuarioFinal} />
+      <TaskList userId={usuarioFinal.id} />
     </div>
   );
 };

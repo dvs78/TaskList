@@ -73,6 +73,20 @@ button {
   }
 }
 
+.input__login {
+  text-align: center; /* centraliza os ••• dentro do input */
+}
+
+.input__login::placeholder {
+  text-align: center; /* centraliza o placeholder */
+  opacity: 0.7; /* opcional: suaviza o placeholder */
+}
+
+/* (Opcional) Safari antigo */
+.input__login::-webkit-input-placeholder {
+  text-align: center;
+}
+
 .btn__enter {
   font-family: "Segoe UI", sans-serif;
   text-align: center;
@@ -194,9 +208,41 @@ button {
   justify-content: center;
   align-items: center;
   gap: 5px;
-  padding: 10px;
+  padding: 20px;
   margin: 20px 5px 0px 5px;
   border-radius: 8px;
+}
+
+.input__new-task {
+  margin-right: 10px;
+  padding: 8px;
+  font-size: 18px;
+  border: 1px solid var(--fundo-principal);
+  border-radius: 4px;
+  min-width: 245px;
+}
+
+.btn__add {
+  width: 40px; /* controla largura */
+  height: 40px; /* controla altura */
+  display: flex; /* garante centralização do ícone */
+  justify-content: center;
+  align-items: center;
+  font-size: 20px; /* tamanho do ícone */
+  border: solid 2px var(--fundo-principal);
+  border-radius: 6px;
+  color: var(--fundo-principal);
+  cursor: pointer;
+  transition: transform 0.2s;
+  border-radius: 100%;
+}
+
+.btn__add:hover {
+  background: var(--fundo-principal);
+  border-radius: 100%;
+  color: var(--texto);
+  background: var(--fundo-principal);
+  transform: scale(1.1); /* efeito de "crescer" sem deslocar */
 }
 
 /* TASKLIST //////////////////////////// */

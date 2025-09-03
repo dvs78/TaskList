@@ -3,20 +3,21 @@ import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const TaskList = () => {
+const TaskList = ({ userId }) => {
   // Variável de estado
   const [tarefas, setTarefas] = useState([]);
 
   // Hook
   useEffect(() => {
     const requisicaoAxios = async () => {
-      const { data } = await axios.get("http://localhost:3000/api/task");
-      console.log(data);
+      const { data } = await axios.get("/api/task");
+      // console.log("tarefas: ", data);
 
-      setTarefas(data);
+      setTarefas(data.filter((t) => t.usuario_id === userId));
     };
     requisicaoAxios();
   }, []);
+
   return (
     <div className="task__list">
       {tarefas.map((t, i) => (
