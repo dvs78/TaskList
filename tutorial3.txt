@@ -618,9 +618,9 @@ export default TaskList;
 Para animação
 Digitar no terminal, pasta front-end:
 npm i framer-motion
+
+
 -----------------------------------------------------------------------------------------
-
-
 19. VITE CONFIG 
 Em vite config deixar assim:
 
@@ -636,5 +636,44 @@ export default defineConfig({
 
 e quando puxar a rota, deixar assim:
 await axios.get("/api/login")
+
+
+-----------------------------------------------------------------------------------------
+20. TOAST
+
+Digitar no terminal, pasta front-end:
+npm i react-toastify
+
+App.jsx ficou assim:
+import { useState } from "react";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Toast from "./components/Toast.jsx"; // ⬅️ seu container
+
+function App() {
+  return (
+    <div className="app_components">
+      <BrowserRouter>
+       <Toast /> {/* ⬅️ precisa existir 1 vez no app inteiro */}
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+export default App;
+
+No arquivo que irá usar o toast, no caso aqui AddTask.jsx, fica assim
+
+Colar em style.css
+/* style.css */
+.toast-success { background: #16a34a !important; color: #fff !important; }
+.toast-error   { background: #dc2626 !important; color: #fff !important; }
+.toast-info    { background: #2563eb !important; color: #fff !important; }
+.toast-alerta  { background: #f59e0b !important; color: #1f2937 !important; }
+.toast-body    { font-weight: 500; }
 
 -----------------------------------------------------------------------------------------

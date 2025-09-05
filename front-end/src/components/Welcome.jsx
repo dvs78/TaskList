@@ -36,7 +36,7 @@ function Welcome({ nome = "usuário", duration = 2600, onClose }) {
         <motion.div className="bv__card" variants={card}>
           <div className="bv__icon">🎉</div>
           <div className="bv__title">Oi, {nome}!</div>
-          <p className="bv__text">Bom te ver por aqui</p>
+          <p className="bv__text">Bom te ver por aqui!</p>
         </motion.div>
       </motion.div>
     </AnimatePresence>

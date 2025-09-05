@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Welcome from "../../components/Welcome"; // ajuste o caminho
+import Welcome from "../../components/Welcome";
 
 const Login = () => {
   const [senhaDigitada, setSenhaDigitada] = useState("");
