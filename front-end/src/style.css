@@ -352,9 +352,6 @@ button {
 }
 
 .task__list-item:hover {
-  /* background-color: var(--texto); */
-  /* color: var(--fundo-principal); */
-  /* font-weight: bold; */
   background-color: var(--task-concluida);
 }
 
@@ -365,7 +362,6 @@ button {
 
 .btn__remove {
   border-radius: 100%;
-  /* margin: 5px; */
   font-size: 18px;
   padding: 5px 8px;
   color: var(--task-remove);
@@ -378,7 +374,6 @@ button {
 
 .btn__edit {
   border-radius: 100%;
-  /* margin: 5px; */
   padding: 5px 8px;
   font-size: 18px;
   transition: border-color 0.25s;

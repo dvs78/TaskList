@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import ConfirmModal from "../../components/ConfirmModal.jsx";
 import { notificar } from "../../components/Toast.jsx";
 
-const TaskList = ({ userId }) => {
+const TaskList = ({ userId, reload }) => {
   const [tarefas, setTarefas] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [draftText, setDraftText] = useState("");
@@ -29,7 +29,7 @@ const TaskList = ({ userId }) => {
       const { data } = await axios.get("/api/task");
       setTarefas(data.filter((t) => t.usuario_id === userId));
     })();
-  }, [userId]);
+  }, [userId, reload]);
 
   const startEdit = (task) => {
     setEditingId(task.id);
