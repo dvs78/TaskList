@@ -200,8 +200,8 @@ Dentro da pasta src criar a pasta Pages e dentro delas ciar a pasta Login e Home
 Dentro da pasta components, criar o arquivo Header
 
 Deixar a página App.jsx, assim:
-import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -227,7 +227,7 @@ Digitar no terminal, na pasta back-end:
 npm init -y
 Esse -y é para concordar com tudo que será proposto para configurar, se quiser configurar personalizado, basta digitar = npm init, mas nessa altura do projeto não tem necessidade
 
-No package.json do back-end, colocar depois de  "description": "", isso aqui  "type": "module",
+No package.json do back-end, colocar depois de  "description": "", isso aqui  "type": "module"
 
 
 -----------------------------------------------------------------------------------------
@@ -248,7 +248,7 @@ const app = express();
 
 Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
 app.listen(3000, () => {
-  console.log("Meu servidor está rodando na porta https://localhost:3000");
+  console.log("Meu servidor está rodando na porta http://localhost:3000");
 });
 
 O back-end roda na porta 3000
@@ -262,10 +262,10 @@ Toda vez que mudar o arquivo, para não ter que matar o back-end e atualizar, pa
 -----------------------------------------------------------------------------------------
 9. CRIANDO REQUISIÇÃO GET =  ENDPOINT "/"
 
-No back-end chama endpoint, https://localhost:3000
-O front-end chama rota, https://localhost:5173
+No back-end chama endpoint, http://localhost:3000
+O front-end chama rota, http://localhost:5173
 
-Por enquanto o endpoint https://localhost:3000 vai aparecer Cannot GET /
+Por enquanto o endpoint http://localhost:3000 vai aparecer Cannot GET /
 
 GET - Pegar informações, não aceita requisição (body), só aceita resposta
 PUT/PATCH - Editar informações, aceita requisição (body), aceita resposta
@@ -316,7 +316,7 @@ ex: {"nome": "Daniel", "idade": 47}
 
 Middleware (express.json()): toda requisição com res.json, transforma em json, ou seja,todo body que chegar transforma em json
 
-Alterar a rquisição post
+Alterar a requisição post
 app.use(express.json());
 
 app.post("/", (req, res) => {
@@ -343,7 +343,7 @@ app.post("/", (req, res) => {
   res.json({ nome: nome, idade: idade }); // vai aparecer no reqbin
 });
 
-No json quando a chave e a variácvel tem o mesmo nome, é só deixar a chave que retorna a variável que tem o mesmo nome da chave
+No json quando a chave e a variável tem o mesmo nome, é só deixar a chave que retorna a variável que tem o mesmo nome da chave
 app.post("/", (req, res) => {
   const { body } = req; // o body é uma chave do objeto req
   const { nome, idade } = body;
@@ -370,37 +370,6 @@ app.post("/produto/:id", (req, res) => {
 
   res.json({ nome, imersao });
 });
-
------------------------------------------------------------------------------------------
-12. CRIAR O BANCO DE DADOS NO pgadmin
-
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
--- CRIAÇÃO DA TABELA LOGIN
-CREATE TABLE IF NOT EXISTS public.login (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  senha TEXT NOT NULL UNIQUE,
-  email TEXT NOT NULL UNIQUE,
-  nome TEXT NOT NULL UNIQUE
-);
-
-
--- CRIAÇÃO DA TABELA TAREFAS
-CREATE TABLE IF NOT EXISTS public.tarefas (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  usuario_id UUID NOT NULL,
-  nome TEXT NOT NULL,
-  tarefa TEXT NOT NULL,
-  CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES public.login(id) ON DELETE CASCADE
-);
-
-SELECT * FROM login
-SELECT * FROM tarefas
-
-INSERT INTO login (senha, nome, email)
-VALUES
-  ('0000', 'Daniel', 'dvs.veiga78@gmail.com'),
-  ('0001', 'Tais', 'tr.abreuveiga@gmail.com');
 
 
 --------------------------------------------------------------------------------------------
@@ -483,6 +452,11 @@ As iniciais em maiúsculo, porque iremos criar uma classe nesse arquivo
 Esse arquivo terá as ações comuns para o banco de dados
 
 Copiar o modelo de outros projetos
+
+NOVO MODELO
+No arquivo index.js
+
+Rota GET para login
 
 
 -----------------------------------------------------------------------------------------
