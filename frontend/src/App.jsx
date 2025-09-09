@@ -3,7 +3,10 @@ import Login from "./pages/login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:3000"
+    : "https://tasklist-o2yv.onrender.com";
 
 function App() {
   return (
