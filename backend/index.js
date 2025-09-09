@@ -7,7 +7,7 @@ import path, { dirname } from "path";
 
 const __fileName = fileURLToPath(import.meta.url);
 const __dirname = dirname(__fileName);
-const caminhoDist = path.join(__dirname, "../front-end/dist");
+const caminhoDist = path.join(__dirname, "../frontend/dist");
 console.log(caminhoDist);
 
 // Colocar todas as funções do express na variável app
