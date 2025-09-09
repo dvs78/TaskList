@@ -18,7 +18,7 @@ const Login = () => {
         const { data } = await axios.get("/"); // baseURL + /api/login
         setUsuarios(data || []);
       } catch (error) {
-        console.error("Falha ao buscar /login:", error.message);
+        console.error("Falha ao buscar login:", error.message);
         alert("Não foi possível conectar ao servidor. Verifique o back-end.");
         // notificar("erro", "Não foi possível conectar ao servidor.");
       }

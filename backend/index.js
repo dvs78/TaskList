@@ -111,7 +111,7 @@ app.use(express.json());
 // 🚩 Sirva o front buildado
 app.use(express.static(caminhoDist));
 
-app.get("/api/login", async (req, res) => {
+app.get("/api/", async (req, res) => {
   try {
     const resultado = (await pool.query("SELECT * FROM login")).rows;
     res.send(resultado);
