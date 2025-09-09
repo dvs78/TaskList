@@ -112,9 +112,10 @@ export default Header;
 
 -----------------------------------------------------------------------------------------
 4 PASSO - SUBIR PROJETO PARA O GITHUB
-Antes, no arquivo .gitignore, deve ficar assim:
+Antes,
+No package.json global, do backend e frontend do projeto, criar uma pasta .gitignore:
 node_modules
-.env
+
 
 Abrir o github:
 Ir em new
@@ -127,7 +128,7 @@ Abrir na pasta global
 Digite no terminal:
 git init, vai deixar os arquivos U
 git add .
-git commit -m "Salavndo projeto no Github"
+git commit -m "Salvando projeto no Github"
 Em or push an existing repository from the comnad line
 Copiar todos os códigos e rodar no terminal:
 git remote add origin https://github.com/dvs78/TaskList.git
@@ -748,7 +749,7 @@ Digitar no terminal, pasta global:
 npm run build
 npm run start
 
-No package.json global do projeto, criar uma pasta .gitignore:
+No package.json global e do backend e frontend do projeto, criar uma pasta .gitignore:
 node_modules
 
 
