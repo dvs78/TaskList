@@ -802,3 +802,70 @@ Adicione no seu package.json (o da raiz) um bloco engines:
   "engines": {
     "node": "22.x"
   },
+
+No Render, em Environment Variables, preencha:
+
+  DATABASE_URL = postgresql://tasklist_2les_user:JmGJ5uEHInm2Ulb3BcBdB3vTJ3PvGa3S@dpg-d3024bv5r7bs73ausl9g-a/tasklist_2les
+  NODE_ENV = production
+  NPM_CONFIG_PRODUCTION = false
+
+Para o back-end no Render, prefira usar a Internal Database URL (fica em “Connect → Internal” lá no dashboard do banco).
+Para o pgAdmin no Windows, use sempre a External Database URL, porque você está acessando de fora.
+
+No postgres local vá em Add new server
+No Render, a External Database URL tem esse formato: postgresql://tasklist_2les_user:Jm6J5uEHm2Ul3b8cBd83vTJ3PvGa3S@dpg-d3024bv5r7bs73ausl99-a.oregon-postgres.render.com:5432/tasklist_2les
+
+Server Name (nome amigável): TaskList-Render
+
+Host name/address: dpg-d3024bv5r7bs73ausl9g-a.oregon-postgres.render.com
+
+Port: 5432
+
+Database: tasklist_2les
+
+Username / User: tasklist_2les_user
+
+Password: JmGJ5uEHInm2Ulb3BcBdB3vTJ3PvGa3S
+
+SSL mode: require
+
+Role e Service não precisa preencher
+Clicar em connect e Open
+
+Depois colar o código SQL
+-- extensão p/ gerar UUID
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- Tabela LOGIN
+CREATE TABLE IF NOT EXISTS public.login (
+  id    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nome  TEXT NOT NULL UNIQUE,
+  senha TEXT NOT NULL
+);
+
+-- Tabela TAREFA
+CREATE TABLE IF NOT EXISTS public.tarefa (
+  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  usuario_id UUID NOT NULL REFERENCES public.login(id) ON DELETE CASCADE,
+  tarefa     TEXT NOT NULL
+);
+
+-- Inserir usuários
+INSERT INTO public.login (senha, nome) VALUES
+  ('0000', 'Daniel'),
+  ('0001', 'Tais')
+ON CONFLICT (nome) DO NOTHING;
+
+-- Inserir tarefas pegando o ID real de cada usuário pelo nome
+INSERT INTO public.tarefa (usuario_id, tarefa)
+SELECT l.id, x.tarefa
+FROM (VALUES
+  ('Daniel', 'Regar todas as plantas da estufa A'),
+  ('Daniel', 'Correr'),
+  ('Tais',   'Verificar nível de adubo nos viveiros')
+) AS x(nome, tarefa)
+JOIN public.login l ON l.nome = x.nome
+ON CONFLICT DO NOTHING;
+
+SELECT * FROM public.login;
+SELECT * FROM public.tarefa;
