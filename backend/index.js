@@ -67,9 +67,12 @@ app.post("/produto/:id", (req, res) => {
 
 // console.log((await pool.query("SELECT * FROM login")).rows);
 
-app.get("*any", (req, res) => {
+app.get((req, res) => {
   res.sendFile(path.join(caminhoDist, "index.html"));
 });
+// app.get("*any", (req, res) => {
+//   res.sendFile(path.join(caminhoDist, "index.html"));
+// });
 
 // Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
 app.listen(3000, () => {
