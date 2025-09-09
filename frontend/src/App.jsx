@@ -5,8 +5,8 @@ import axios from "axios";
 
 axios.defaults.baseURL =
   import.meta.env.MODE === "development"
-    ? "http://localhost:3000"
-    : "https://tasklist-o2yv.onrender.com";
+    ? "http://localhost:3000/api"
+    : "https://tasklist-o2yv.onrender.com/api";
 
 function App() {
   return (

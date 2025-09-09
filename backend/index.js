@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static(caminhoDist));
 
 // Criando requisição get = endpoint com barra
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
   try {
     const resultado = (await pool.query("SELECT * FROM login")).rows;
     res.send(resultado);
