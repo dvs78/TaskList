@@ -668,10 +668,11 @@ console.log(__dirname) // caminho da pasta
 
 Colar em index.js
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+import path, { dirname } from "path";
 
 const __fileName = fileURLToPath(import.meta.url);
 const __dirname = dirname(__fileName);
+const caminhoDist = path.join(__dirname, "../front-end/dist");
 
 O arquivo index.js focou assim:
 import express from "express";
@@ -733,12 +734,12 @@ function App() {
 export default App;
 
 
-Digitar no terminal, pasta global:
+Criar a pasta package.json global, digitar no terminal, pasta global:
 npm init -y
-Criar a pasta package.json global
 
 No package.json global do projeto, em scripts substituir test por:
-"start": "npm run start --prefix back-end"
+ "start": "npm run start --prefix backend",
+ "build": "npm install --prefix frontend && npm install --prefix backend && npm run build --prefix frontend"
 
 No package.json do back-end, em scripts substituir test por:
 "start": "node index.js"

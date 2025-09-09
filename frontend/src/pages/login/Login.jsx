@@ -1,55 +1,3 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom"; // import para navegação
-// import axios from "axios";
-
-// const Login = () => {
-//   const [senha, setSenha] = useState("");
-//   const navigate = useNavigate(); // hook do react-router
-
-//   const handleLogin = () => {
-//     // Aqui você pode validar a senha
-//     if (senha === "0000") {
-//       // Se a senha estiver certa, vai para Home
-//       navigate("/home");
-//     } else {
-//       alert("Senha incorreta!");
-//     }
-
-//     const requisicaoGet = async () => {
-//       const { data } = await axios.get("http://localhost:3000/"); // baseURL + /api/login
-//       const findSenha = data.find((l) => {
-//         l.senha === senha;
-//       });
-//       console.log(findSenha);
-//       return findSenha;
-//     };
-//     requisicaoGet();
-//   };
-
-//   return (
-//     <div className="login__container">
-//       <h1>Login</h1>
-//       <label className="label__login" htmlFor="input__login">
-//         Digite sua senha:
-//       </label>
-//       <input
-//         type="password"
-//         name="input__login"
-//         placeholder="senha"
-//         value={senha}
-//         onChange={(e) => {
-//           setSenha(e.target.value);
-//         }}
-//       />
-//       <button className="btn__enter" onClick={handleLogin}>
-//         <h3>Entrar</h3>
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -67,7 +15,7 @@ const Login = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("http://localhost:3000/"); // baseURL + /api/login
+        const { data } = await axios.get("/"); // baseURL + /api/login
         setUsuarios(data || []);
       } catch (error) {
         console.error("Falha ao buscar /login:", error.message);

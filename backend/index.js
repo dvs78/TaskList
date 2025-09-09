@@ -2,10 +2,19 @@ import express from "express";
 import cors from "cors";
 import pool from "./connect.js";
 
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
+
+const __fileName = fileURLToPath(import.meta.url);
+const __dirname = dirname(__fileName);
+const caminhoDist = path.join(__dirname, "../front-end/dist");
+console.log(caminhoDist);
+
 // Colocar todas as funções do express na variável app
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(caminhoDist));
 
 // Criando requisição get = endpoint com barra
 app.get("/", async (req, res) => {
@@ -39,8 +48,8 @@ app.get("/", async (req, res) => {
 app.post("/", (req, res) => {
   const { body } = req; // o body é uma chave do objeto req
   const { nome, idade } = body;
-  console.log(body); // vai aparecer no terminal
-  console.log(nome, idade); // vai aparecer no terminal
+  // console.log(body); // vai aparecer no terminal
+  // console.log(nome, idade); // vai aparecer no terminal
   res.json({ nome, idade }); // vai aparecer no reqbin
 });
 
@@ -51,12 +60,16 @@ app.post("/produto/:id", (req, res) => {
 
   // const id = req.params.id;
   const { id } = req.params;
-  console.log(id);
+  // console.log(id);
 
   res.json({ nome, idade });
 });
 
-console.log((await pool.query("SELECT * FROM login")).rows);
+// console.log((await pool.query("SELECT * FROM login")).rows);
+
+app.get((req, res) => {
+  res.sendFile(path.join(caminhoDist, "index.html"));
+});
 
 // Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
 app.listen(3000, () => {
