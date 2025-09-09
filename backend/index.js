@@ -67,7 +67,7 @@ app.post("/produto/:id", (req, res) => {
 
 // console.log((await pool.query("SELECT * FROM login")).rows);
 
-app.get((req, res) => {
+app.get("*any", (req, res) => {
   res.sendFile(path.join(caminhoDist, "index.html"));
 });
 
