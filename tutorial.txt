@@ -791,3 +791,14 @@ Clique no projeto
 Crie uma variável de ambiente
 Key: DATABASE_URL                        Valor: postgresql://tasklist_2les_user:JmGJ5uEHInm2Ulb3BcBdB3vTJ3PvGa3S@dpg-d3024bv5r7bs73ausl9g-a/tasklist_2les
 Clique em salvar
+
+
+
+Adicione no seu package.json (o da raiz) um bloco engines:
+  "scripts": {
+    "start": "npm run start --prefix backend",
+    "build": "npm install --prefix frontend && npm install --prefix backend && npm run build --prefix frontend"
+  },
+  "engines": {
+    "node": "22.x"
+  },
