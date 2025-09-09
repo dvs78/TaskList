@@ -869,3 +869,44 @@ ON CONFLICT DO NOTHING;
 
 SELECT * FROM public.login;
 SELECT * FROM public.tarefa;
+
+
+Checklist rápido (recomendado)
+
+.gitignore
+Garanta que o repo ignora:
+.env, .env.*, node_modules/, frontend/node_modules/, backend/node_modules/, dist/, build/.
+Inclua um .env.example (sem segredos).
+
+Segurança
+Como a URL do DB circulou, gire a senha do Postgres no Render (Database → Rotate Password) e atualize a DATABASE_URL no Render e no seu .env local.
+
+Render (Web Service)
+
+Node version: fixe (ex.: 22.x) em Environment → Node.
+
+Health check: path /api/health.
+
+Auto-deploy do main ligado.
+
+Env vars: NODE_ENV=production, DATABASE_URL=<External...>.
+
+CORS: no back, aceite apenas http://localhost:5173 (dev) e seu domínio do Render (prod).
+
+CORS no back (exemplo)
+
+app.use(cors({
+  origin: [ "http://localhost:5173", "https://tasklist-o2yv.onrender.com" ],
+  credentials: true
+}));
+
+
+Catch-all do React (Express 5)
+Seu *any está ok. Se quiser reforçar:
+
+app.get(/^(?!\/api).*/, (_req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
+
+
+README
