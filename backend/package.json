@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "seed:login": "node scripts/seedLogin.js",
+    "seed:login": "node security/seedLogin.js",
     "start": "node index.js"
   },
   "keywords": [],
