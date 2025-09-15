@@ -1,8 +1,8 @@
 import pool from "../connect.js";
 
 async function main() {
-  const nome = "David";
-  const senha = "0004";
+  const nome = "Daniel";
+  const senha = "0002";
 
   try {
     const sql = `
