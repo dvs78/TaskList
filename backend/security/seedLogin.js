@@ -1,8 +1,8 @@
 import pool from "../connect.js";
 
 async function main() {
-  const nome = "Serginho";
-  const senha = "0003";
+  const nome = "David";
+  const senha = "0004";
 
   try {
     const sql = `
@@ -23,3 +23,5 @@ async function main() {
 }
 
 main();
+
+// Rodar no Render, em Start Command: cd backend && npm run seed:login && npm run start
