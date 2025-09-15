@@ -35,66 +35,6 @@ app.get("/api/login", async (_req, res) => {
   }
 });
 
-// // Get - Task
-// app.get("/api/task", async (req, res) => {
-//   try {
-//     const { rows } = await pool.query(
-//       'SELECT id, usuario_id, tarefa FROM "tarefa" ORDER BY tarefa'
-//     );
-//     res.json(rows);
-//   } catch (error) {
-//     console.error("Erro /api/task:", error);
-//     res.status(500).json({ error: String(error) });
-//   }
-// });
-
-// app.get("/api/_debug/usuario/:id", async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const sql = 'SELECT id, nome FROM "login" WHERE id = $1';
-//     const { rows } = await pool.query(sql, [id]);
-//     res.json({ rows, count: rows.length });
-//   } catch (e) {
-//     console.error(e);
-//     res.status(500).json({ error: String(e) });
-//   }
-// });
-
-// app.get("/api/_debug/dbinfo", async (_req, res) => {
-//   const { rows } = await pool.query(
-//     "SELECT current_database() AS db, inet_server_addr() AS host, inet_server_port() AS port"
-//   );
-//   res.json(rows[0]);
-// });
-
-// // Post - Task
-// app.post("/api/task", async (req, res) => {
-//   try {
-//     const { usuario_id, tarefa } = req.body;
-
-//     // validação básica
-//     if (!usuario_id || !tarefa) {
-//       return res
-//         .status(400)
-//         .json({ error: "Campos obrigatórios: usuario_id e tarefa" });
-//     }
-
-//     const query = `
-//       INSERT INTO "tarefa" (usuario_id, tarefa)
-//       VALUES ($1, $2)
-//       RETURNING id, usuario_id, tarefa
-//     `;
-
-//     const values = [usuario_id, tarefa];
-//     const { rows } = await pool.query(query, values);
-
-//     res.status(201).json(rows[0]); // retorna a tarefa criada
-//   } catch (error) {
-//     console.error("Erro /api/task (POST):", error);
-//     res.status(500).json({ error: String(error) });
-//   }
-// });
-
 // Todas as tarefas
 app.get("/api/task", async (_req, res) => {
   try {
