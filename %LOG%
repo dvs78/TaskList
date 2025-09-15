@@ -1,0 +1,18 @@
+CWD após pushd: %CD% 
+INFORMAÇÕES: não foi possível localizar arquivos para o(s) padrão(ões) especificado(s).
+'"%PYTHON_EXE%"' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes.
+G:\ ESTA DISPONIVEL 
+Executando: "%PYTHON_EXE%" "%SCRIPT%" 
+'"%PYTHON_EXE%"' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes.
+[%date% %time%] Finalizado backup (exitcode=%ERRORLEVEL%) 
+CWD apos pushd: %CD% 
+INFORMAÇÕES: não foi possível localizar arquivos para o(s) padrão(ões) especificado(s).
+'"%PYTHON_EXE%"' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes.
+G:\ ESTA DISPONIVEL 
+Executando: "%PYTHON_EXE%" "%SCRIPT%" 
+'"%PYTHON_EXE%"' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes.
+[%date% %time%] Finalizado backup (exitcode=%ERRORLEVEL%) 
