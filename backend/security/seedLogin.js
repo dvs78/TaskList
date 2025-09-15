@@ -2,7 +2,7 @@ import pool from "../connect.js";
 
 async function main() {
   const nome = "Daniel";
-  const senha = "0002";
+  const senha = "0000";
 
   try {
     const sql = `
